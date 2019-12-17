@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Runtime Script Tutorial</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="icon" href="https://siwei.dev/favicon.gif">
+
+	<script src="https://runtime.siwei.dev/ui/main/jquery-1.12.4.js"></script>
+	<script src="https://runtime.siwei.dev/ui/console/jqconsole.js"></script>
+
+	<link rel="stylesheet" href="./css/styles.css">
+	<link rel="stylesheet" href="https://runtime.siwei.dev/ui/console/jqconsole-embedded.css">
+	<link rel="stylesheet" href="https://runtime.siwei.dev/ui/main/style.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="wrapper">
+	<header>
+		<h1 class="page-title">Runtime Script</h1>
+		<p style="font-size:11px;color:gray;">Generated on {{date}}</p>
+		<p><em>by</em> <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></p>
+		<p class="view">
+			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://runtime.siwei.dev" target="_blank"><i class="fa fa-flask" aria-hidden="true"></i></i></a>
+		</p>
+		<div class="toc" style="display: block;">
+			<ul>
+{{toc}}
+			</ul>
+		</div>
+		<br/>
+		<p>Reference:</p>
+		<pre>N: variable name
+V: variable reference ($VR)
+   or value (int|str|[]|{})
+S: list or str $VR
+M: map $VR
+L: label
+F: function $VR</pre>
+
+	</header>
+
+	<section>
+{{contents}}
+	</section>
+
+	<footer>
+	</footer>
+	</div>
+
+<script src="https://runtime.siwei.dev/runtime-init.js"></script>
+<script src="https://runtime.siwei.dev/ui/editor/ace.js"></script>
+<script src="https://runtime.siwei.dev/src/parser.js"></script>
+<script src="https://runtime.siwei.dev/src/canvas.js"></script>
+<script src="https://runtime.siwei.dev/src/evaluator.js"></script>
+<script src="https://runtime.siwei.dev/src/executer.js"></script>
+<script src="https://runtime.siwei.dev/runtime.js"></script>
+
+<style>
+	.ace-chrome .ace_gutter {
+		background: white;
+		border-right: 1px solid #ddd;
+	}
+	
+	.runtime-embedded-box {
+		margin-bottom: 15px;
+	}
+</style>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Runtime Script Tutorial</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="icon" href="https://siwei.dev/favicon.gif">
+
+	<script src="https://runtime.siwei.dev/ui/main/jquery-1.12.4.js"></script>
+	<script src="https://runtime.siwei.dev/ui/console/jqconsole.js"></script>
+
+	<link rel="stylesheet" href="./css/styles.css">
+	<link rel="stylesheet" href="https://runtime.siwei.dev/ui/console/jqconsole-embedded.css">
+	<link rel="stylesheet" href="https://runtime.siwei.dev/ui/main/style.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="wrapper">
+	<header>
+		<h1 class="page-title">Runtime Script</h1>
+		<p style="font-size:11px;color:gray;">Generated on 17 Dec, 2019</p>
+		<p><em>by</em> <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></p>
+		<p class="view">
+			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://runtime.siwei.dev" target="_blank"><i class="fa fa-flask" aria-hidden="true"></i></i></a>
+		</p>
+		<div class="toc" style="display: block;">
+			<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#hello-world">Hello World</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#arithmetics">Arithmetics</a></li>
+<li><a href="#jump">Jump</a></li>
+			</ul>
+		</div>
+		<br/>
+		<p>Reference:</p>
+		<pre>N: variable name
+V: variable reference ($VR)
+   or value (int|str|[]|{})
+S: list or str $VR
+M: map $VR
+L: label
+F: function $VR</pre>
+
+	</header>
+
+	<section>
+<h2 id="introduction">Introduction</h2>
+<p>Runtime Script is a tiny programming language I created for fun since early 2019.
+Its syntax is assembly-like and greatly inspired by the game <a target="_blank" target="_blank" href="https://store.steampowered.com/app/504210/SHENZHEN_IO/">Shenzhen IO</a>.
+Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.</p>
+<h2 id="hello-world">Hello World</h2>
+<p>Just like any other programming language, the first program we are going to try is outputing a <code>Hello World</code> message.</p>
+<p>Click the <code>Run</code> button below to run the <code>Hello World</code> program.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 100px;">prt 'Hello World!'
+</div>
+
+<p>In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the <code>Run</code> button.</p>
+<p>To run the program one more time, just click the <code>Run</code> button again after the previous execution is finished.</p>
+<p>To clear the console contents, you can click the console panel to focus on it, then type <code>clear</code> and press Enter.</p>
+<p>Let's get back to the program itself. The above <code>Hello World</code> program has just one line code, which has a keyword <code>prt</code> and a quotated string <code>'Hello World'</code></p>
+<pre class="code-block"><code>prt 'Hello World!'
+</code></pre>
+
+<p>In Runtime Script, we call such a line of code a <code>statement</code>.
+Each statement has an instruction keyword, like <code>prt</code> in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by a space.</p>
+<h2 id="variables">Variables</h2>
+<p>To declare a variable, we use the <code>let</code> keyword, followed by the variable name and its value.</p>
+<pre class="code-block"><code>let N V
+</code></pre>
+
+<p>A dollar sign (<code>$</code>) should be prepended to the variable name when it is referenced.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 140px;">let x 5
+prt $x
+let x 'abc'
+prt $x
+</div>
+
+<p>In the above example, we first create a new variable called <code>x</code> with an initial value of <code>5</code>, then print <code>x</code>. Now <code>x</code> is an integer.</p>
+<p>Then we set a new value <code>'abc'</code>, which is a string, to the variable <code>x</code> and print it again.</p>
+<p>In Runtime Script, there are only two primitive data types, i.e. integer (<code>int</code>) and string (<code>str</code>).</p>
+<div class="runtime-embedded-box runtime-show-canvas" style="width: 100%; height: 250px;">clr
+let x 9
+#draw_dot
+slp 200
+drw $x 11 1
+add x $x 2
+jne $x 15 draw_dot
+prt 'Hello World!'
+</div>
+
+<h2 id="arithmetics">Arithmetics</h2>
+<h2 id="jump">Jump</h2>
+	</section>
+
+	<footer>
+	</footer>
+	</div>
+
+<script src="https://runtime.siwei.dev/runtime-init.js"></script>
+<script src="https://runtime.siwei.dev/ui/editor/ace.js"></script>
+<script src="https://runtime.siwei.dev/src/parser.js"></script>
+<script src="https://runtime.siwei.dev/src/canvas.js"></script>
+<script src="https://runtime.siwei.dev/src/evaluator.js"></script>
+<script src="https://runtime.siwei.dev/src/executer.js"></script>
+<script src="https://runtime.siwei.dev/runtime.js"></script>
+
+<style>
+	.ace-chrome .ace_gutter {
+		background: white;
+		border-right: 1px solid #ddd;
+	}
+	
+	.runtime-embedded-box {
+		margin-bottom: 15px;
+	}
+</style>
+
+</body>
+</html>
