@@ -94,5 +94,5 @@ now = datetime.now()
 out_data = out_data.replace('{{date}}', now.strftime("%d %b, %Y"))
 out_data = out_data.replace('{{contents}}', data)
 
-with open('out.html', 'w') as f:
+with open('index.html', 'w') as f:
 	f.write(out_data)
