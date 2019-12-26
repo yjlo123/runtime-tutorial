@@ -150,6 +150,22 @@ footer {
 .toc ul {
   list-style-type: none;
   padding-left: 0;
+  font-size: 15px;
+}
+
+.toc ul a {
+  color: #666;
+  padding-left: 6px;
+  border-left: 2px solid #eee;
+}
+
+.toc ul a:hover {
+  color: #222;
+  border-left: 2px solid gray;
+}
+
+.side-title {
+  margin-bottom: 5px;
 }
 
 @media print, screen and (max-width: 960px) {

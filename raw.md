@@ -18,16 +18,16 @@ In the above embedded editor, you can write your program on the left and see the
 
 To run the program one more time, just click the `Run` button again after the previous execution is finished.
 
-To clear the console contents, you can click the console panel to focus on it, then type `clear` and press Enter.
+To clear the console contents, you can click the console panel to focus on it, then type `clear` and press `Enter` key.
 
-Let's get back to the program itself. The above `Hello World` program has just one line code, which has a keyword `prt` and a quotated string `'Hello World'`
+Let's get back to the program itself. The above `Hello World` program has just one line code, which has a keyword `prt` and a quoted string `'Hello World'`
 
 ```code-block
 prt 'Hello World!'
 ```
 
 In Runtime Script, we call such a line of code a `statement`.
-Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by a space.
+Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
 
 
 ## Variables
@@ -49,8 +49,97 @@ In the above example, we first create a new variable called `x` with an initial 
 
 Then we set a new value `'abc'`, which is a string, to the variable `x` and print it again.
 
-In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`).
+## Data Types
 
+In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`). Besides, there are another two advanced data types, `list` and `map`, details about these two data types will be explained in the Data Structure section.
+
+We can check a variable or value's data type by using the `typ` instruction.
+```code-block
+typ N V
+```
+
+Also, we can convert integers to strings or strings to integers, using `str` and `int` respectively.
+```code-block
+int N V
+str N V
+```
+
+```runtime-embedded-box-0-260
+let x 5
+let y '123'
+
+typ tx $x
+prt $tx
+
+typ ty $y
+prt $ty
+
+int iy $y
+add res $iy 1
+prt $res
+```
+
+
+## Arithmetics
+Runtime Script supports five basic arithmetic operations, namely addition (`add`), subtraction (`sub`), multiplication (`mul`), division (`div`), and modulo (`mod`).
+
+```code-block
+add N V V
+sub N V V
+mul N V V
+div N V V
+mod N V V
+```
+
+Let's take addition as an example, the sum of the two values `V V` is assigned to the variable `N`, the variable `N` will be created if it has not been defined.
+
+The `div` instruction works as a floor division, thus the division result is always an integer.
+
+Play around with the following examples to get familiar with these arithmetic operations.
+
+```runtime-embedded-box-0-350
+let x 5
+let y 2
+
+add z $x $y
+prt $z
+
+sub z $x $y
+prt $z
+
+mul z $x $y
+prt $z
+
+div z $x $y
+prt $z
+
+mod z $x $y
+prt $z
+```
+
+Moreover, the arguments can be strings for the following cases:  
+1. `add` two strings to concatenate them  
+2. `add` a string/integer to an integer/string to concatenate them  
+3. `mul` a string by an integer to repeate the string a number of times  
+
+```runtime-embedded-box-0-200
+add z 'Hello' 'World'
+prt $z
+
+add z 'abc' 5
+prt $z
+
+mul z 'Hi' 3
+prt $z
+```
+
+## Jump
+
+## Data Structures
+
+## Miscellaneous
+
+## Canvas
 
 ```runtime-embedded-box-1-250
 clr
@@ -63,6 +152,5 @@ jne $x 15 draw_dot
 prt 'Hello World!'
 ```
 
-## Arithmetics
+## Advanced
 
-## Jump
