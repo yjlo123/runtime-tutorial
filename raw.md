@@ -5,11 +5,11 @@ Its syntax is assembly-like and greatly inspired by the game [Shenzhen IO](https
 Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.
 
 ## Hello World
-Just like any other programming language, the first program we are going to try is outputing a `Hello World` message.
+Just like any other programming languages, the first program we are going to try is outputing a `Hello World` message.
 
 Click the `Run` button below to run the `Hello World` program.
 
-```runtime-embedded-box-0-100
+```runtime-embedded-box-0-80
 prt 'Hello World!'
 ```
 
@@ -38,7 +38,7 @@ let N V
 
 A dollar sign (`$`) should be prepended to the variable name when it is referenced.
 
-```runtime-embedded-box-0-140
+```runtime-embedded-box-0-125
 let x 5
 prt $x
 let x 'abc'
@@ -68,15 +68,15 @@ str N V
 let x 5
 let y '123'
 
-typ tx $x
-prt $tx
+typ t_x $x
+prt $t_x
 
-typ ty $y
-prt $ty
+typ t_y $y
+prt $t_y
 
 int iy $y
-add res $iy 1
-prt $res
+typ t_iy $iy
+prt $t_iy
 ```
 
 
@@ -122,7 +122,7 @@ Moreover, the arguments can be strings for the following cases:
 2. `add` a string/integer to an integer/string to concatenate them  
 3. `mul` a string by an integer to repeate the string a number of times  
 
-```runtime-embedded-box-0-200
+```runtime-embedded-box-0-190
 add z 'Hello' 'World'
 prt $z
 
@@ -135,11 +135,55 @@ prt $z
 
 ## Jump
 
+```code-block
+jmp L
+jeq V V L
+jne V V L
+jlt V V L
+jgt V V L
+```
+
 ## Data Structures
 
+```code-block
+psh S V
+pop S N
+pol S N
+```
+
+```code-block
+put M V V
+get M V N
+```
+
 ## Miscellaneous
+### User input
+```code-block
+inp N
+```
+
+### Sleep
+```code-block
+slp V
+```
+
+### Random
+```code-block
+rnd N V V
+```
+
+### Time
+```code-block
+tim N year|month|date|day|hour|minute|second|milli
+```
 
 ## Canvas
+
+```code-block
+clr
+drw V V V
+pxl N V V
+```
 
 ```runtime-embedded-box-1-250
 clr
@@ -154,3 +198,18 @@ prt 'Hello World!'
 
 ## Advanced
 
+### If-else
+```code-block
+ife V V
+ifg V V
+els
+fin
+```
+
+### Function
+```code-block
+def N
+ret
+end
+cal F
+```

@@ -59,9 +59,9 @@ F: function $VR</pre>
 Its syntax is assembly-like and greatly inspired by the game <a target="_blank" target="_blank" href="https://store.steampowered.com/app/504210/SHENZHEN_IO/">Shenzhen IO</a>.
 Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.</p>
 <h2 id="hello-world">Hello World</h2>
-<p>Just like any other programming language, the first program we are going to try is outputing a <code>Hello World</code> message.</p>
+<p>Just like any other programming languages, the first program we are going to try is outputing a <code>Hello World</code> message.</p>
 <p>Click the <code>Run</code> button below to run the <code>Hello World</code> program.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 100px;">prt 'Hello World!'
+<div class="runtime-embedded-box " style="width: 100%; height: 80px;">prt 'Hello World!'
 </div>
 
 <p>In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the <code>Run</code> button.</p>
@@ -79,7 +79,7 @@ Each statement has an instruction keyword, like <code>prt</code> in this example
 </code></pre>
 
 <p>A dollar sign (<code>$</code>) should be prepended to the variable name when it is referenced.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 140px;">let x 5
+<div class="runtime-embedded-box " style="width: 100%; height: 125px;">let x 5
 prt $x
 let x 'abc'
 prt $x
@@ -101,15 +101,15 @@ str N V
 <div class="runtime-embedded-box " style="width: 100%; height: 260px;">let x 5
 let y '123'
 
-typ tx $x
-prt $tx
+typ t_x $x
+prt $t_x
 
-typ ty $y
-prt $ty
+typ t_y $y
+prt $t_y
 
 int iy $y
-add res $iy 1
-prt $res
+typ t_iy $iy
+prt $t_iy
 </div>
 
 <h2 id="arithmetics">Arithmetics</h2>
@@ -147,7 +147,7 @@ prt $z
 1. <code>add</code> two strings to concatenate them<br />
 2. <code>add</code> a string/integer to an integer/string to concatenate them<br />
 3. <code>mul</code> a string by an integer to repeate the string a number of times  </p>
-<div class="runtime-embedded-box " style="width: 100%; height: 200px;">add z 'Hello' 'World'
+<div class="runtime-embedded-box " style="width: 100%; height: 190px;">add z 'Hello' 'World'
 prt $z
 
 add z 'abc' 5
@@ -158,9 +158,46 @@ prt $z
 </div>
 
 <h2 id="jump">Jump</h2>
+<pre class="code-block"><code>jmp L
+jeq V V L
+jne V V L
+jlt V V L
+jgt V V L
+</code></pre>
+
 <h2 id="data-structures">Data Structures</h2>
+<pre class="code-block"><code>psh S V
+pop S N
+pol S N
+</code></pre>
+
+<pre class="code-block"><code>put M V V
+get M V N
+</code></pre>
+
 <h2 id="miscellaneous">Miscellaneous</h2>
+<h3>User input</h3>
+<pre class="code-block"><code>inp N
+</code></pre>
+
+<h3>Sleep</h3>
+<pre class="code-block"><code>slp V
+</code></pre>
+
+<h3>Random</h3>
+<pre class="code-block"><code>rnd N V V
+</code></pre>
+
+<h3>Time</h3>
+<pre class="code-block"><code>tim N year|month|date|day|hour|minute|second|milli
+</code></pre>
+
 <h2 id="canvas">Canvas</h2>
+<pre class="code-block"><code>clr
+drw V V V
+pxl N V V
+</code></pre>
+
 <div class="runtime-embedded-box runtime-show-canvas" style="width: 100%; height: 250px;">clr
 let x 9
 #draw_dot
@@ -172,6 +209,19 @@ prt 'Hello World!'
 </div>
 
 <h2 id="advanced">Advanced</h2>
+<h3>If-else</h3>
+<pre class="code-block"><code>ife V V
+ifg V V
+els
+fin
+</code></pre>
+
+<h3>Function</h3>
+<pre class="code-block"><code>def N
+ret
+end
+cal F
+</code></pre>
 	</section>
 
 	<footer>
@@ -196,6 +246,23 @@ prt 'Hello World!'
 		margin-bottom: 15px;
 	}
 </style>
+
+<script>
+function highlightToc() {
+	let currentPos = $(document).scrollTop();
+	$(".toc ul").find('li').removeClass("current");
+	$("h2").each(function( index ) {
+		let idx = index > 0 ? index-1 : 0;
+		let el = $(".toc ul").find('li').eq(idx);
+		if ($(this).offset().top - 100 > currentPos) {
+			el.addClass("current");
+			return false;
+		}
+	});
+}
+$(document).ready(highlightToc);
+$(window).scroll(highlightToc);
+</script>
 
 </body>
 </html>

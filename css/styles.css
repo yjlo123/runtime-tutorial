@@ -154,7 +154,8 @@ footer {
 }
 
 .toc ul a {
-  color: #666;
+  display: block;
+  color: #888;
   padding-left: 6px;
   border-left: 2px solid #eee;
 }
@@ -162,6 +163,11 @@ footer {
 .toc ul a:hover {
   color: #222;
   border-left: 2px solid gray;
+}
+
+.toc ul li.current a {
+  color: black;
+  border-left: 2px solid black;
 }
 
 .side-title {
