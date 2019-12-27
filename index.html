@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 26 Dec, 2019</p>
+		<p style="font-size:11px;color:gray;">Generated on 27 Dec, 2019</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -61,7 +61,8 @@ Runtime Script is written in Javascript, so that it can be parsed and executed d
 <h2 id="hello-world">Hello World</h2>
 <p>Just like any other programming languages, the first program we are going to try is outputing a <code>Hello World</code> message.</p>
 <p>Click the <code>Run</code> button below to run the <code>Hello World</code> program.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 80px;">prt 'Hello World!'
+<div class="runtime-embedded-box " style="width: 100%; height: 90px;">/ Welcome to Runtime Script
+prt 'Hello World!'
 </div>
 
 <p>In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the <code>Run</code> button.</p>
@@ -73,6 +74,7 @@ Runtime Script is written in Javascript, so that it can be parsed and executed d
 
 <p>In Runtime Script, we call such a line of code a <code>statement</code>.
 Each statement has an instruction keyword, like <code>prt</code> in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.</p>
+<p>The frist line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (<code>/</code>), it can be after a statement with the same line or occupies the whole line.</p>
 <h2 id="variables">Variables</h2>
 <p>To declare a variable, we use the <code>let</code> keyword, followed by the variable name and its value.</p>
 <pre class="code-block"><code>let N V
@@ -98,7 +100,7 @@ prt $x
 str N V
 </code></pre>
 
-<div class="runtime-embedded-box " style="width: 100%; height: 260px;">let x 5
+<div class="runtime-embedded-box " style="width: 100%; height: 280px;">let x 5
 let y '123'
 
 typ t_x $x
@@ -107,6 +109,7 @@ prt $t_x
 typ t_y $y
 prt $t_y
 
+/ convert y from string to integer
 int iy $y
 typ t_iy $iy
 prt $t_iy
@@ -171,7 +174,7 @@ prt 'skipped'
 prt 'end'
 </div>
 
-<p>There are four other jump instructions which only jump when the condition of the two given values is true.</p>
+<p>There are four other jump instructions which only jump when a certain condition is true.</p>
 <ol>
 <li><code>jeq</code>: jump if equal  </li>
 <li><code>jne</code>: jump if not equal  </li>
@@ -193,11 +196,39 @@ jne $i 5 loop
 
 <p>The above example demonstrates printing and incrementing <code>i</code> from 0 to 4.</p>
 <h2 id="data-structures">Data Structures</h2>
+<p>Two data structures are provided in Runtime Script, i.e. <code>list</code> and <code>map</code>, and they are used as containers.</p>
+<h3>List</h3>
+<p>The literal <code>[]</code> represents an empty list. Usually it is used when defining a new list.</p>
+<blockquote>
+<p>Defining a non-empty list is not supported.</p>
+</blockquote>
+<p>There are three instructions for list operations:</p>
 <pre class="code-block"><code>psh S V
 pop S N
 pol S N
 </code></pre>
 
+<p><code>psh</code> for appending a value to the end to the list, <code>pop</code> for extracting the last item from the list, and <code>pol</code> for extracting the first item from the list.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 320px;">let list []
+psh $list 3
+psh $list 2
+psh $list 'a'
+prt $list
+
+/ pop the last item
+pop $list i
+prt $i
+
+/ poll the first item
+pol $list j
+prt $j
+
+prt $list
+</div>
+
+<h3>Map</h3>
+<p>The literal <code>{}</code> represents an empty map.</p>
+<p>There are two instructions, <code>put</code> and <code>get</code>, for adding a key-value pair and getting the value by its key respectively.</p>
 <pre class="code-block"><code>put M V V
 get M V N
 </code></pre>

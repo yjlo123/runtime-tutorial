@@ -9,10 +9,10 @@ Just like any other programming languages, the first program we are going to try
 
 Click the `Run` button below to run the `Hello World` program.
 
-```runtime-embedded-box-0-80
+```runtime-embedded-box-0-90
+/ Welcome to Runtime Script
 prt 'Hello World!'
 ```
-
 
 In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the `Run` button.
 
@@ -29,6 +29,7 @@ prt 'Hello World!'
 In Runtime Script, we call such a line of code a `statement`.
 Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
 
+The frist line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (`/`), it can be after a statement with the same line or occupies the whole line.
 
 ## Variables
 To declare a variable, we use the `let` keyword, followed by the variable name and its value.
@@ -64,7 +65,7 @@ int N V
 str N V
 ```
 
-```runtime-embedded-box-0-260
+```runtime-embedded-box-0-280
 let x 5
 let y '123'
 
@@ -74,6 +75,7 @@ prt $t_x
 typ t_y $y
 prt $t_y
 
+/ convert y from string to integer
 int iy $y
 typ t_iy $iy
 prt $t_iy
@@ -149,7 +151,7 @@ prt 'skipped'
 prt 'end'
 ```
 
-There are four other jump instructions which only jump when the condition of the two given values is true.
+There are four other jump instructions which only jump when a certain condition is true.
 
 1. `jeq`: jump if equal  
 2. `jne`: jump if not equal  
@@ -174,6 +176,14 @@ jne $i 5 loop
 The above example demonstrates printing and incrementing `i` from 0 to 4.
 
 ## Data Structures
+Two data structures are provided in Runtime Script, i.e. `list` and `map`, and they are used as containers.
+
+### List
+The literal `[]` represents an empty list. Usually it is used when defining a new list.
+
+> Defining a non-empty list is not supported.
+
+There are three instructions for list operations:
 
 ```code-block
 psh S V
@@ -181,10 +191,38 @@ pop S N
 pol S N
 ```
 
+`psh` for appending a value to the end to the list, `pop` for extracting the last item from the list, and `pol` for extracting the first item from the list.
+
+```runtime-embedded-box-0-320
+let list []
+psh $list 3
+psh $list 2
+psh $list 'a'
+prt $list
+
+/ pop the last item
+pop $list i
+prt $i
+
+/ poll the first item
+pol $list j
+prt $j
+
+prt $list
+```
+
+### Map
+
+The literal `{}` represents an empty map.
+
+There are two instructions, `put` and `get`, for adding a key-value pair and getting the value by its key respectively.
+
 ```code-block
 put M V V
 get M V N
 ```
+
+
 
 ## Miscellaneous
 ### User input
