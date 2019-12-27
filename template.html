@@ -74,13 +74,17 @@ F: function $VR</pre>
 <script>
 function highlightToc() {
 	let currentPos = $(document).scrollTop();
-	$(".toc ul").find('li').removeClass("current");
+	let tocItems = $(".toc ul").find('li');
+	tocItems.removeClass("current");
 	$("h2").each(function( index ) {
 		let idx = index > 0 ? index-1 : 0;
 		let el = $(".toc ul").find('li').eq(idx);
 		if ($(this).offset().top - 100 > currentPos) {
 			el.addClass("current");
 			return false;
+		}
+		if (index === tocItems.length - 1) {
+			$(".toc ul").find('li').eq(tocItems.length - 1).addClass("current");
 		}
 	});
 }

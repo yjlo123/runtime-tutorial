@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 25 Dec, 2019</p>
+		<p style="font-size:11px;color:gray;">Generated on 26 Dec, 2019</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -158,13 +158,40 @@ prt $z
 </div>
 
 <h2 id="jump">Jump</h2>
+<p>In Runtime Script, you can insert labels to any places in your program, and jump to a specifc lable using the <code>jmp</code> instruction.</p>
 <pre class="code-block"><code>jmp L
-jeq V V L
+</code></pre>
+
+<p>A label is a line starts with a hashtag <code>#</code>.</p>
+<p>In the following example, the line <code>prt 'skipped'</code> is skipped because of jumping to the "continue" label.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 140px;">prt 'start'
+jmp continue
+prt 'skipped'
+#continue
+prt 'end'
+</div>
+
+<p>There are four other jump instructions which only jump when the condition of the two given values is true.</p>
+<ol>
+<li><code>jeq</code>: jump if equal  </li>
+<li><code>jne</code>: jump if not equal  </li>
+<li><code>jlt</code>: jump if less than  </li>
+<li><code>jgt</code>: jump if greater than  </li>
+</ol>
+<pre class="code-block"><code>jeq V V L
 jne V V L
 jlt V V L
 jgt V V L
 </code></pre>
 
+<div class="runtime-embedded-box " style="width: 100%; height: 150px;">let i 0
+#loop
+prt $i
+add i $i 1
+jne $i 5 loop
+</div>
+
+<p>The above example demonstrates printing and incrementing <code>i</code> from 0 to 4.</p>
 <h2 id="data-structures">Data Structures</h2>
 <pre class="code-block"><code>psh S V
 pop S N
@@ -209,6 +236,7 @@ prt 'Hello World!'
 </div>
 
 <h2 id="advanced">Advanced</h2>
+<p>Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.</p>
 <h3>If-else</h3>
 <pre class="code-block"><code>ife V V
 ifg V V
@@ -216,12 +244,19 @@ els
 fin
 </code></pre>
 
+<blockquote>
+<p>If-else cannot be nested!</p>
+</blockquote>
 <h3>Function</h3>
 <pre class="code-block"><code>def N
 ret
 end
 cal F
 </code></pre>
+
+<blockquote>
+<p>Do not exit a function using jump statements.</p>
+</blockquote>
 	</section>
 
 	<footer>
@@ -250,13 +285,17 @@ cal F
 <script>
 function highlightToc() {
 	let currentPos = $(document).scrollTop();
-	$(".toc ul").find('li').removeClass("current");
+	let tocItems = $(".toc ul").find('li');
+	tocItems.removeClass("current");
 	$("h2").each(function( index ) {
 		let idx = index > 0 ? index-1 : 0;
 		let el = $(".toc ul").find('li').eq(idx);
 		if ($(this).offset().top - 100 > currentPos) {
 			el.addClass("current");
 			return false;
+		}
+		if (index === tocItems.length - 1) {
+			$(".toc ul").find('li').eq(tocItems.length - 1).addClass("current");
 		}
 	});
 }

@@ -134,14 +134,44 @@ prt $z
 ```
 
 ## Jump
-
+In Runtime Script, you can insert labels to any places in your program, and jump to a specifc lable using the `jmp` instruction.
 ```code-block
 jmp L
+```
+A label is a line starts with a hashtag `#`.
+
+In the following example, the line `prt 'skipped'` is skipped because of jumping to the "continue" label.
+```runtime-embedded-box-0-140
+prt 'start'
+jmp continue
+prt 'skipped'
+#continue
+prt 'end'
+```
+
+There are four other jump instructions which only jump when the condition of the two given values is true.
+
+1. `jeq`: jump if equal  
+2. `jne`: jump if not equal  
+3. `jlt`: jump if less than  
+4. `jgt`: jump if greater than  
+
+```code-block
 jeq V V L
 jne V V L
 jlt V V L
 jgt V V L
 ```
+
+```runtime-embedded-box-0-150
+let i 0
+#loop
+prt $i
+add i $i 1
+jne $i 5 loop
+```
+
+The above example demonstrates printing and incrementing `i` from 0 to 4.
 
 ## Data Structures
 
@@ -197,6 +227,7 @@ prt 'Hello World!'
 ```
 
 ## Advanced
+Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.
 
 ### If-else
 ```code-block
@@ -206,6 +237,8 @@ els
 fin
 ```
 
+> If-else cannot be nested!
+
 ### Function
 ```code-block
 def N
@@ -213,3 +246,5 @@ ret
 end
 cal F
 ```
+
+> Do not exit a function using jump statements.
