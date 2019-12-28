@@ -211,6 +211,19 @@ prt $j
 prt $list
 ```
 
+List instructions also work on strings. We can regard a string as a list and each character is an item in this list.
+
+```runtime-embedded-box-0-200
+let str 'abcz'
+
+pop $str i
+prt $i
+
+psh $str 'd'
+psh $str 'ef'
+prt $str
+```
+
 ### Map
 
 The literal `{}` represents an empty map.
@@ -222,12 +235,49 @@ put M V V
 get M V N
 ```
 
+The keys are always strings, and the values can be any date types.
 
+```runtime-embedded-box-0-300
+let map {}
+
+put $map 0 'Zero'
+put $map 1 'One'
+put $map 3 'Three'
+
+let lst []
+psh $lst 123
+
+put $map list $lst
+
+prt $map
+get $map 3 val
+prt $val
+```
+
+If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.
+
+```runtime-embedded-box-0-190
+let map {}
+
+put $map 0 'null'
+put $map 1 'true'
+
+put $map 0 'false'
+
+prt $map
+```
 
 ## Miscellaneous
 ### User input
+Get a user input string from the console.
 ```code-block
 inp N
+```
+
+```runtime-embedded-box-0-110
+prt 'Enter your value:'
+inp i
+prt $i
 ```
 
 ### Sleep

@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 27 Dec, 2019</p>
+		<p style="font-size:11px;color:gray;">Generated on 28 Dec, 2019</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -226,6 +226,17 @@ prt $j
 prt $list
 </div>
 
+<p>List instructions also work on strings. We can regard a string as a list and each character is an item in this list.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 200px;">let str 'abcz'
+
+pop $str i
+prt $i
+
+psh $str 'd'
+psh $str 'ef'
+prt $str
+</div>
+
 <h3>Map</h3>
 <p>The literal <code>{}</code> represents an empty map.</p>
 <p>There are two instructions, <code>put</code> and <code>get</code>, for adding a key-value pair and getting the value by its key respectively.</p>
@@ -233,10 +244,44 @@ prt $list
 get M V N
 </code></pre>
 
+<p>The keys are always strings, and the values can be any date types.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 300px;">let map {}
+
+put $map 0 'Zero'
+put $map 1 'One'
+put $map 3 'Three'
+
+let lst []
+psh $lst 123
+
+put $map list $lst
+
+prt $map
+get $map 3 val
+prt $val
+</div>
+
+<p>If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 190px;">let map {}
+
+put $map 0 'null'
+put $map 1 'true'
+
+put $map 0 'false'
+
+prt $map
+</div>
+
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3>User input</h3>
+<p>Get a user input string from the console.</p>
 <pre class="code-block"><code>inp N
 </code></pre>
+
+<div class="runtime-embedded-box " style="width: 100%; height: 110px;">prt 'Enter your value:'
+inp i
+prt $i
+</div>
 
 <h3>Sleep</h3>
 <pre class="code-block"><code>slp V
