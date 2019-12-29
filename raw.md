@@ -224,6 +224,8 @@ psh $str 'ef'
 prt $str
 ```
 
+> `pop` or `pol` from an empty stirng will result in an empty string.
+
 ### Map
 
 The literal `{}` represents an empty map.
@@ -281,13 +283,44 @@ prt $i
 ```
 
 ### Sleep
+Pause the program for a certain number of milliseconds.
 ```code-block
 slp V
 ```
 
+```runtime-embedded-box-0-110
+prt 'Hello'
+slp 1000
+prt 'Bye'
+```
+
+In the above example, the program is paused for one second before printing the 'Bye' message.
+
+In the following example, we are going to "slow-print" the hello wolrd message.
+
+```runtime-embedded-box-0-230
+let msg 'Hello, wrold!'
+
+#next
+pol $msg c
+jeq $c '' done
+slp 100
+prt $c ''
+jmp next
+#done
+prt ''
+```
+
 ### Random
+Get a random integer between two integers, where the second one is not included.
 ```code-block
 rnd N V V
+```
+
+```runtime-embedded-box-0-110
+/ Get a random integer among 1, 2, 3, 4
+rnd num 1 5
+prt $num
 ```
 
 ### Time
