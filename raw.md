@@ -224,7 +224,7 @@ psh $str 'ef'
 prt $str
 ```
 
-> `pop` or `pol` from an empty stirng will result in an empty string.
+> `pop` or `pol` from an empty stirng will result in an empty string (`''`).
 
 ### Map
 
@@ -324,8 +324,14 @@ prt $num
 ```
 
 ### Time
+Get the system date or time.
 ```code-block
 tim N year|month|date|day|hour|minute|second|milli
+```
+
+```runtime-embedded-box-0-90
+tim y year
+prt $y
 ```
 
 ## Canvas

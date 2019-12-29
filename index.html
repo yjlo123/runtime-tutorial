@@ -238,7 +238,7 @@ prt $str
 </div>
 
 <blockquote>
-<p><code>pop</code> or <code>pol</code> from an empty stirng will result in an empty string.</p>
+<p><code>pop</code> or <code>pol</code> from an empty stirng will result in an empty string (<code>''</code>).</p>
 </blockquote>
 <h3>Map</h3>
 <p>The literal <code>{}</code> represents an empty map.</p>
@@ -321,8 +321,13 @@ prt $num
 </div>
 
 <h3>Time</h3>
+<p>Get the system date or time.</p>
 <pre class="code-block"><code>tim N year|month|date|day|hour|minute|second|milli
 </code></pre>
+
+<div class="runtime-embedded-box " style="width: 100%; height: 90px;">tim y year
+prt $y
+</div>
 
 <h2 id="canvas">Canvas</h2>
 <pre class="code-block"><code>clr
