@@ -211,6 +211,8 @@ prt $j
 prt $list
 ```
 
+> `pop` or `pol` from an empty list will result in a `nil`, which has the same value as the built-in constant `$nil`.
+
 List instructions also work on strings. We can regard a string as a list and each character is an item in this list.
 
 ```runtime-embedded-box-0-200
@@ -333,6 +335,26 @@ tim N year|month|date|day|hour|minute|second|milli
 tim y year
 prt $y
 ```
+
+### User Key Press
+There is a special value, `lastkey`, which records the user's last pressed key code.
+```runtime-embedded-box-0-300
+prt 'Press an arrow key'
+#start
+let key $lastkey
+slp 200
+jeq $key -1 start
+
+let key_map {}
+put $key_map 37 'Left'
+put $key_map 38 'Up'
+put $key_map 39 'Right'
+put $key_map 40 'Down'
+
+get $key_map $key direction
+prt $direction
+```
+You can check a specific key's code [here](https://keycode.info/).
 
 ## Canvas
 

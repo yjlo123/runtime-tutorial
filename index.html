@@ -226,6 +226,9 @@ prt $j
 prt $list
 </div>
 
+<blockquote>
+<p><code>pop</code> or <code>pol</code> from an empty list will result in a <code>nil</code>, which has the same value as the built-in constant <code>$nil</code>.</p>
+</blockquote>
 <p>List instructions also work on strings. We can regard a string as a list and each character is an item in this list.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 200px;">let str 'abcz'
 
@@ -329,6 +332,25 @@ prt $num
 prt $y
 </div>
 
+<h3>User Key Press</h3>
+<p>There is a special value, <code>lastkey</code>, which records the user's last pressed key code.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 300px;">prt 'Press an arrow key'
+#start
+let key $lastkey
+slp 200
+jeq $key -1 start
+
+let key_map {}
+put $key_map 37 'Left'
+put $key_map 38 'Up'
+put $key_map 39 'Right'
+put $key_map 40 'Down'
+
+get $key_map $key direction
+prt $direction
+</div>
+
+<p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
 <h2 id="canvas">Canvas</h2>
 <pre class="code-block"><code>clr
 drw V V V
