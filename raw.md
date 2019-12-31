@@ -211,7 +211,7 @@ prt $j
 prt $list
 ```
 
-> `pop` or `pol` from an empty list will result in a `nil`, which has the same value as the built-in constant `$nil`.
+> `pop` or `pol` from an empty list will result in a `$nil`, which represents an empty value.
 
 List instructions also work on strings. We can regard a string as a list and each character is an item in this list.
 
@@ -260,10 +260,12 @@ prt $val
 
 If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.
 
+If the key in the `get` statement does not present in the map, a `$nil` value will be returned.
+
 ```runtime-embedded-box-0-190
 let map {}
 
-put $map 0 'null'
+put $map 0 'zero'
 put $map 1 'true'
 
 put $map 0 'false'
@@ -314,7 +316,7 @@ prt ''
 ```
 
 ### Random
-Get a random integer between two integers, where the second one is not included.
+Get a random integer between two integers, where the ending integer is not included.
 ```code-block
 rnd N V V
 ```
@@ -337,7 +339,7 @@ prt $y
 ```
 
 ### User Key Press
-There is a special value, `lastkey`, which records the user's last pressed key code.
+There is a special value, `$lastkey`, which records the user's last pressed key code.
 ```runtime-embedded-box-0-300
 prt 'Press an arrow key'
 #start
@@ -378,7 +380,10 @@ prt 'Hello World!'
 ## Advanced
 Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.
 
+> Indentations in Runtime Script are only for readability, they have no effect on the execution.
+
 ### If-else
+Executing certain lines of statements depends on the comparison result of two values.
 ```code-block
 ife V V
 ifg V V
@@ -386,9 +391,39 @@ els
 fin
 ```
 
-> If-else cannot be nested!
+1. `ife`: if the two values are equal
+2. `ifg`: if the first value is greater than the second value
+3. `els`: else (optional)
+4. `fin`: end of if-else
+
+> Nested if-else is not supported.
+
+If-else is a convenient way to write condition checks, it may save your time writing complicated codes with jumps and labels.
+
+The following program checking the equality of two numbers by using if-else
+```runtime-embedded-box-0-180
+let a 0
+let b 1
+ife $a $b
+ prt 'equal'
+els
+ prt 'not equal'
+fin
+```
+is equivalent to
+```runtime-embedded-box-0-200
+let a 0
+let b 1
+jne $a $b not_equal
+prt 'equal'
+jmp end_check
+#not_equal
+prt 'not equal'
+#end_check
+```
 
 ### Function
+Define a block of statements for code reuse.
 ```code-block
 def N
 ret
@@ -396,4 +431,49 @@ end
 cal F
 ```
 
+1. `def`: the head of a function definition with the function name
+2. `ret`: jump to the line after the previous function call
+3. `end`: the end of the function definition, jump to the line after the previous function call
+4. `cal`: jump to the function head by name
+
 > Do not exit a function using jump statements.
+
+A 'random' function is defined in the folling program, and it is called twice. 
+```runtime-embedded-box-0-190
+def random
+ prt 'Your random number:'
+ rnd n 1 10
+ prt $n
+end
+
+cal random
+cal random
+```
+
+The following program demonstrates the recursion version of calculating factorials.
+```runtime-embedded-box-0-470
+def factorial
+ pop $s n
+ ife $n 1		/ base case
+  psh $s $n
+  ret			/ return to last func call
+ fin
+ psh $s $n
+ sub n1 $n 1	/ decrease param by 1
+ psh $s $n1		/ param for recursion call
+
+ cal factorial	/ recursion call
+
+ pop $s n3
+ pop $s n4		/ pop 2 nums from stack
+ mul n5 $n3 $n4	/ get their product
+ psh $s $n5		/ push back to stack
+end
+
+let num 5
+let s []		/ a temp param stack
+psh $s $num
+cal factorial	/ initial func call
+pop $s res		/ only 1 num left in stack
+prt $res
+```

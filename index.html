@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 29 Dec, 2019</p>
+		<p style="font-size:11px;color:gray;">Generated on 30 Dec, 2019</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -227,7 +227,7 @@ prt $list
 </div>
 
 <blockquote>
-<p><code>pop</code> or <code>pol</code> from an empty list will result in a <code>nil</code>, which has the same value as the built-in constant <code>$nil</code>.</p>
+<p><code>pop</code> or <code>pol</code> from an empty list will result in a <code>$nil</code>, which represents an empty value.</p>
 </blockquote>
 <p>List instructions also work on strings. We can regard a string as a list and each character is an item in this list.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 200px;">let str 'abcz'
@@ -268,9 +268,10 @@ prt $val
 </div>
 
 <p>If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.</p>
+<p>If the key in the <code>get</code> statement does not present in the map, a <code>$nil</code> value will be returned.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">let map {}
 
-put $map 0 'null'
+put $map 0 'zero'
 put $map 1 'true'
 
 put $map 0 'false'
@@ -314,7 +315,7 @@ prt ''
 </div>
 
 <h3>Random</h3>
-<p>Get a random integer between two integers, where the second one is not included.</p>
+<p>Get a random integer between two integers, where the ending integer is not included.</p>
 <pre class="code-block"><code>rnd N V V
 </code></pre>
 
@@ -333,7 +334,7 @@ prt $y
 </div>
 
 <h3>User Key Press</h3>
-<p>There is a special value, <code>lastkey</code>, which records the user's last pressed key code.</p>
+<p>There is a special value, <code>$lastkey</code>, which records the user's last pressed key code.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 300px;">prt 'Press an arrow key'
 #start
 let key $lastkey
@@ -369,26 +370,102 @@ prt 'Hello World!'
 
 <h2 id="advanced">Advanced</h2>
 <p>Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.</p>
+<blockquote>
+<p>Indentations in Runtime Script are only for readability, they have no effect on the execution.</p>
+</blockquote>
 <h3>If-else</h3>
+<p>Executing certain lines of statements depends on the comparison result of two values.</p>
 <pre class="code-block"><code>ife V V
 ifg V V
 els
 fin
 </code></pre>
 
+<ol>
+<li><code>ife</code>: if the two values are equal</li>
+<li><code>ifg</code>: if the first value is greater than the second value</li>
+<li><code>els</code>: else (optional)</li>
+<li><code>fin</code>: end of if-else</li>
+</ol>
 <blockquote>
-<p>If-else cannot be nested!</p>
+<p>Nested if-else is not supported.</p>
 </blockquote>
+<p>If-else is a convenient way to write condition checks, it may save your time writing complicated codes with jumps and labels.</p>
+<p>The following program checking the equality of two numbers by using if-else</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 180px;">let a 0
+let b 1
+ife $a $b
+ prt 'equal'
+els
+ prt 'not equal'
+fin
+</div>
+
+<p>is equivalent to</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 200px;">let a 0
+let b 1
+jne $a $b not_equal
+prt 'equal'
+jmp end_check
+#not_equal
+prt 'not equal'
+#end_check
+</div>
+
 <h3>Function</h3>
+<p>Define a block of statements for code reuse.</p>
 <pre class="code-block"><code>def N
 ret
 end
 cal F
 </code></pre>
 
+<ol>
+<li><code>def</code>: the head of a function definition with the function name</li>
+<li><code>ret</code>: jump to the line after the previous function call</li>
+<li><code>end</code>: the end of the function definition, jump to the line after the previous function call</li>
+<li><code>cal</code>: jump to the function head by name</li>
+</ol>
 <blockquote>
 <p>Do not exit a function using jump statements.</p>
 </blockquote>
+<p>A 'random' function is defined in the folling program, and it is called twice. </p>
+<div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
+ prt 'Your random number:'
+ rnd n 1 10
+ prt $n
+end
+
+cal random
+cal random
+</div>
+
+<p>The following program demonstrates the recursion version of calculating factorials.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 470px;">def factorial
+ pop $s n
+ ife $n 1       / base case
+  psh $s $n
+  ret           / return to last func call
+ fin
+ psh $s $n
+ sub n1 $n 1    / decrease param by 1
+ psh $s $n1     / param for recursion call
+
+ cal factorial  / recursion call
+
+ pop $s n3
+ pop $s n4      / pop 2 nums from stack
+ mul n5 $n3 $n4 / get their product
+ psh $s $n5     / push back to stack
+end
+
+let num 5
+let s []        / a temp param stack
+psh $s $num
+cal factorial   / initial func call
+pop $s res      / only 1 num left in stack
+prt $res
+</div>
 	</section>
 
 	<footer>
