@@ -4,10 +4,12 @@ Runtime Script is a tiny programming language I created for fun since early 2019
 Its syntax is assembly-like and greatly inspired by the game [Shenzhen IO](https://store.steampowered.com/app/504210/SHENZHEN_IO/).
 Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.
 
-## Hello World
-Just like any other programming languages, the first program we are going to try is outputing a `Hello World` message.
+Using Runtime Script, you can develop mini games (e.g. [Flappy Bird](https://runtime.siwei.dev/?src=bird)), solve algorithm problems (e.g. [Selection Sort](https://runtime.siwei.dev/?src=sort)), build wedgets (e.g. [Digital Clock](https://runtime.siwei.dev/?src=clock)), and do a lot more.
 
-Click the `Run` button below to run the `Hello World` program.
+## Hello World
+Just like any other programming languages, the first program we are going to try is showing an `Hello World` message.
+
+Click the `Run` button below to run the program.
 
 ```runtime-embedded-box-0-90
 / Welcome to Runtime Script
@@ -153,17 +155,17 @@ prt 'end'
 
 There are four other jump instructions which only jump when a certain condition is true.
 
-1. `jeq`: jump if equal  
-2. `jne`: jump if not equal  
-3. `jlt`: jump if less than  
-4. `jgt`: jump if greater than  
-
 ```code-block
 jeq V V L
 jne V V L
 jlt V V L
 jgt V V L
 ```
+
+1. `jeq`: jump if V1 equals V2  
+2. `jne`: jump if V1 is not equal to V2  
+3. `jlt`: jump if V1 is less than V2  
+4. `jgt`: jump if V1 is greater than V2  
 
 ```runtime-embedded-box-0-150
 let i 0
@@ -315,6 +317,10 @@ jmp next
 prt ''
 ```
 
+You may find that the first `prt` has two arguments, the first one is the content to be printed, while the second one is the terminator character, which is optional and is a newline character by default.
+
+In the above example, we are trying to print each individual character in the same line, thus we indicate the terminator as an empty string.
+
 ### Random
 Get a random integer between two integers, where the ending integer is not included.
 ```code-block
@@ -360,11 +366,30 @@ You can check a specific key's code [here](https://keycode.info/).
 
 ## Canvas
 
+Runtime Script natively support a canvas for displaying graphics.The default canvas is a 24 by 24 pixel matrix.
+
+```runtime-embedded-box-3-170
+drw 0 0 1
+```
+
+You can find there is a black area in the above IDE. After clicking the `run` button, you will see a white dot drawn on the left-top corner.
+
+The origin of the canvas is at the left-top, and row/column numbers are zero-based.
+
+For instance, `drw 0 2 1` means filling the dot on row 0 (1st row) column 2 (3rd column) with white (`1`).
+
+The suported instructions for canvas operations are:
 ```code-block
 clr
 drw V V V
 pxl N V V
 ```
+
+1. `clr`: clear the canvas, in other words, fill the whole canvas with black
+2. `drw`: fill the pixel at (V1, V2) with color V3
+3. `pxl`: get the color of the pixel (V1, V2)
+
+The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2 second interval, then print the 'Hello World!' in the console.
 
 ```runtime-embedded-box-1-250
 clr
@@ -375,6 +400,27 @@ drw $x 11 1
 add x $x 2
 jne $x 15 draw_dot
 prt 'Hello World!'
+```
+
+Runtime Script canvas suppots 16 colors.
+
+```runtime-embedded-box-3-170
+drw 0 0 0	/ black
+drw 0 1 1	/ white
+drw 0 2 2	/ yellow
+drw 0 3 3	/ orange
+drw 0 4 4	/ red
+drw 0 5 5	/ magenta
+drw 0 6 6	/ purple
+drw 0 7 7	/ blue
+drw 0 8 8	/ cyan
+drw 0 9 9	/ green
+drw 0 10 10	/ dark green
+drw 0 11 11	/ brown
+drw 0 12 12	/ tan
+drw 0 13 13	/ silver (light gray)
+drw 0 14 14	/ gray (medium gray)
+drw 0 15 15	/ dark gray
 ```
 
 ## Advanced
@@ -391,10 +437,10 @@ els
 fin
 ```
 
-1. `ife`: if the two values are equal
-2. `ifg`: if the first value is greater than the second value
-3. `els`: else (optional)
-4. `fin`: end of if-else
+1. `ife`: if V1 equals V2, execute the statements below until `els` or `fin` encountered
+2. `ifg`: similiar as `ife`, but check if V1 is greater than V2 instead
+3. `els`: if the above check is false, execute the statements below until `fin` encountered
+4. `fin`: the end of if-else
 
 > Nested if-else is not supported.
 
@@ -450,7 +496,23 @@ cal random
 cal random
 ```
 
-The following program demonstrates the recursion version of calculating factorials.
+You can call a function inside a function.
+```runtime-embedded-box-0-260
+def func_a
+ prt '== A start'
+ cal func_b
+ prt '== A end'
+end
+
+def func_b
+ prt '** B start'
+ prt '** B end'
+end
+
+cal func_a
+```
+
+Recursion is supported. The following program demonstrates the recursive version of calculating factorials.
 ```runtime-embedded-box-0-470
 def factorial
  pop $s n

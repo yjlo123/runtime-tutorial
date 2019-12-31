@@ -70,11 +70,6 @@ code, pre {
   font-size: 14px;
 }
 
-/* Give inline code snippets a bit of breathing room */
-code {
-  margin: 0 0.1em;
-}
-
 /* Reset margin for code blocks */
 
 pre.code-block{
@@ -144,7 +139,8 @@ footer {
   width:270px;
   float:left;
   position:fixed;
-  bottom:50px;
+  bottom:10px;
+  color: gray;
 }
 
 .toc {
@@ -237,6 +233,10 @@ footer {
   }
 
   header ul {
+    display:none;
+  }
+
+  .lang-reference {
     display:none;
   }
 }

@@ -92,6 +92,7 @@ toc = '\n'.join(['<li><a href="#{}">{}</a></li>'.format(header[1], header[0]) fo
 out_data = template.replace('{{toc}}', toc)
 now = datetime.now()
 out_data = out_data.replace('{{date}}', now.strftime("%d %b, %Y"))
+out_data = out_data.replace('{{year}}', now.strftime("%Y"))
 out_data = out_data.replace('{{contents}}', data)
 
 with open('index.html', 'w') as f:

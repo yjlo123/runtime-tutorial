@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 30 Dec, 2019</p>
+		<p style="font-size:11px;color:gray;">Generated on 31 Dec, 2019</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -42,14 +42,16 @@
 <li><a href="#advanced">Advanced</a></li>
 			</ul>
 		</div>
-		<p class="side-title">Reference:</p>
-		<pre>N: variable name
+		<div class="lang-reference">
+			<p class="side-title">Reference:</p>
+			<pre>N: variable name
 V: variable reference ($VR)
    or value (int|str|[]|{})
 S: list or str $VR
 M: map $VR
 L: label
 F: function $VR</pre>
+		</div>
 
 	</header>
 
@@ -58,9 +60,10 @@ F: function $VR</pre>
 <p>Runtime Script is a tiny programming language I created for fun since early 2019.
 Its syntax is assembly-like and greatly inspired by the game <a target="_blank" target="_blank" href="https://store.steampowered.com/app/504210/SHENZHEN_IO/">Shenzhen IO</a>.
 Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.</p>
+<p>Using Runtime Script, you can develop mini games (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=bird">Flappy Bird</a>), solve algorithm problems (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=sort">Selection Sort</a>), build wedgets (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=clock">Digital Clock</a>), and do a lot more.</p>
 <h2 id="hello-world">Hello World</h2>
-<p>Just like any other programming languages, the first program we are going to try is outputing a <code>Hello World</code> message.</p>
-<p>Click the <code>Run</code> button below to run the <code>Hello World</code> program.</p>
+<p>Just like any other programming languages, the first program we are going to try is showing an <code>Hello World</code> message.</p>
+<p>Click the <code>Run</code> button below to run the program.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 90px;">/ Welcome to Runtime Script
 prt 'Hello World!'
 </div>
@@ -175,18 +178,18 @@ prt 'end'
 </div>
 
 <p>There are four other jump instructions which only jump when a certain condition is true.</p>
-<ol>
-<li><code>jeq</code>: jump if equal  </li>
-<li><code>jne</code>: jump if not equal  </li>
-<li><code>jlt</code>: jump if less than  </li>
-<li><code>jgt</code>: jump if greater than  </li>
-</ol>
 <pre class="code-block"><code>jeq V V L
 jne V V L
 jlt V V L
 jgt V V L
 </code></pre>
 
+<ol>
+<li><code>jeq</code>: jump if V1 equals V2  </li>
+<li><code>jne</code>: jump if V1 is not equal to V2  </li>
+<li><code>jlt</code>: jump if V1 is less than V2  </li>
+<li><code>jgt</code>: jump if V1 is greater than V2  </li>
+</ol>
 <div class="runtime-embedded-box " style="width: 100%; height: 150px;">let i 0
 #loop
 prt $i
@@ -314,6 +317,8 @@ jmp next
 prt ''
 </div>
 
+<p>You may find that the first <code>prt</code> has two arguments, the first one is the content to be printed, while the second one is the terminator character, which is optional and is a newline character by default.</p>
+<p>In the above example, we are trying to print each individual character in the same line, thus we indicate the terminator as an empty string.</p>
 <h3>Random</h3>
 <p>Get a random integer between two integers, where the ending integer is not included.</p>
 <pre class="code-block"><code>rnd N V V
@@ -353,11 +358,25 @@ prt $direction
 
 <p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
 <h2 id="canvas">Canvas</h2>
+<p>Runtime Script natively support a canvas for displaying graphics.The default canvas is a 24 by 24 pixel matrix.</p>
+<div class="runtime-embedded-box runtime-show-canvas runtime-hide-console" style="width: 100%; height: 170px;">drw 0 0 1
+</div>
+
+<p>You can find there is a black area in the above IDE. After clicking the <code>run</code> button, you will see a white dot drawn on the left-top corner.</p>
+<p>The origin of the canvas is at the left-top, and row/column numbers are zero-based.</p>
+<p>For instance, <code>drw 0 2 1</code> means filling the dot on row 0 (1st row) column 2 (3rd column) with white (<code>1</code>).</p>
+<p>The suported instructions for canvas operations are:</p>
 <pre class="code-block"><code>clr
 drw V V V
 pxl N V V
 </code></pre>
 
+<ol>
+<li><code>clr</code>: clear the canvas, in other words, fill the whole canvas with black</li>
+<li><code>drw</code>: fill the pixel at (V1, V2) with color V3</li>
+<li><code>pxl</code>: get the color of the pixel (V1, V2)</li>
+</ol>
+<p>The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2 second interval, then print the 'Hello World!' in the console.</p>
 <div class="runtime-embedded-box runtime-show-canvas" style="width: 100%; height: 250px;">clr
 let x 9
 #draw_dot
@@ -366,6 +385,25 @@ drw $x 11 1
 add x $x 2
 jne $x 15 draw_dot
 prt 'Hello World!'
+</div>
+
+<p>Runtime Script canvas suppots 16 colors.</p>
+<div class="runtime-embedded-box runtime-show-canvas runtime-hide-console" style="width: 100%; height: 170px;">drw 0 0 0   / black
+drw 0 1 1   / white
+drw 0 2 2   / yellow
+drw 0 3 3   / orange
+drw 0 4 4   / red
+drw 0 5 5   / magenta
+drw 0 6 6   / purple
+drw 0 7 7   / blue
+drw 0 8 8   / cyan
+drw 0 9 9   / green
+drw 0 10 10 / dark green
+drw 0 11 11 / brown
+drw 0 12 12 / tan
+drw 0 13 13 / silver (light gray)
+drw 0 14 14 / gray (medium gray)
+drw 0 15 15 / dark gray
 </div>
 
 <h2 id="advanced">Advanced</h2>
@@ -382,10 +420,10 @@ fin
 </code></pre>
 
 <ol>
-<li><code>ife</code>: if the two values are equal</li>
-<li><code>ifg</code>: if the first value is greater than the second value</li>
-<li><code>els</code>: else (optional)</li>
-<li><code>fin</code>: end of if-else</li>
+<li><code>ife</code>: if V1 equals V2, execute the statements below until <code>els</code> or <code>fin</code> encountered</li>
+<li><code>ifg</code>: similiar as <code>ife</code>, but check if V1 is greater than V2 instead</li>
+<li><code>els</code>: if the above check is false, execute the statements below until <code>fin</code> encountered</li>
+<li><code>fin</code>: the end of if-else</li>
 </ol>
 <blockquote>
 <p>Nested if-else is not supported.</p>
@@ -440,7 +478,22 @@ cal random
 cal random
 </div>
 
-<p>The following program demonstrates the recursion version of calculating factorials.</p>
+<p>You can call a function inside a function.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 260px;">def func_a
+ prt '== A start'
+ cal func_b
+ prt '== A end'
+end
+
+def func_b
+ prt '** B start'
+ prt '** B end'
+end
+
+cal func_a
+</div>
+
+<p>Recursion is supported. The following program demonstrates the recursive version of calculating factorials.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 470px;">def factorial
  pop $s n
  ife $n 1       / base case
@@ -469,6 +522,7 @@ prt $res
 	</section>
 
 	<footer>
+		<small>&copy; Copyright 2019, <a href="https://liusiwei.com">liusiwei.com</a></small>
 	</footer>
 	</div>
 
