@@ -59,25 +59,25 @@ F: function $VR</pre>
 <h2 id="introduction">Introduction</h2>
 <p>Runtime Script is a tiny programming language I created for fun since early 2019.
 Its syntax is assembly-like and greatly inspired by the game <a target="_blank" target="_blank" href="https://store.steampowered.com/app/504210/SHENZHEN_IO/">Shenzhen IO</a>.
-Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.</p>
+Runtime Script is written in Javascript so that it can be parsed and executed directly in the browser.</p>
 <p>Using Runtime Script, you can develop mini games (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=bird">Flappy Bird</a>), solve algorithm problems (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=sort">Selection Sort</a>), build wedgets (e.g. <a target="_blank" target="_blank" href="https://runtime.siwei.dev/?src=clock">Digital Clock</a>), and do a lot more.</p>
 <h2 id="hello-world">Hello World</h2>
-<p>Just like any other programming languages, the first program we are going to try is showing an <code>Hello World</code> message.</p>
+<p>Just like any other programming language, the first program we are going to try is showing a <code>Hello World</code> message.</p>
 <p>Click the <code>Run</code> button below to run the program.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 90px;">/ Welcome to Runtime Script
 prt 'Hello World!'
 </div>
 
-<p>In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the <code>Run</code> button.</p>
+<p>In the embedded editor above, you can write your program on the left and see the output of your program on the right after clicking the <code>Run</code> button.</p>
 <p>To run the program one more time, just click the <code>Run</code> button again after the previous execution is finished.</p>
 <p>To clear the console contents, you can click the console panel to focus on it, then type <code>clear</code> and press <code>Enter</code> key.</p>
-<p>Let's get back to the program itself. The above <code>Hello World</code> program has just one line code, which has a keyword <code>prt</code> and a quoted string <code>'Hello World'</code></p>
+<p>Let's get back to the program itself. The above <code>Hello World</code> program has just one-line code, which contains a keyword <code>prt</code> and a quoted string <code>'Hello World'</code>.</p>
 <pre class="code-block"><code>prt 'Hello World!'
 </code></pre>
 
 <p>In Runtime Script, we call such a line of code a <code>statement</code>.
 Each statement has an instruction keyword, like <code>prt</code> in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.</p>
-<p>The frist line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (<code>/</code>), it can be after a statement with the same line or occupies the whole line.</p>
+<p>The first line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (<code>/</code>), it can be after a statement with the same line or occupies the whole line.</p>
 <h2 id="variables">Variables</h2>
 <p>To declare a variable, we use the <code>let</code> keyword, followed by the variable name and its value.</p>
 <pre class="code-block"><code>let N V
@@ -90,7 +90,7 @@ let x 'abc'
 prt $x
 </div>
 
-<p>In the above example, we first create a new variable called <code>x</code> with an initial value of <code>5</code>, then print <code>x</code>. Now <code>x</code> is an integer.</p>
+<p>In the above example, we first create a new variable called <code>x</code> with an initial value of <code>5</code>, then print <code>x</code>. Now, <code>x</code> is an integer.</p>
 <p>Then we set a new value <code>'abc'</code>, which is a string, to the variable <code>x</code> and print it again.</p>
 <h2 id="data-types">Data Types</h2>
 <p>In Runtime Script, there are only two primitive data types, i.e. integer (<code>int</code>) and string (<code>str</code>). Besides, there are another two advanced data types, <code>list</code> and <code>map</code>, details about these two data types will be explained in the Data Structure section.</p>
@@ -152,7 +152,7 @@ prt $z
 <p>Moreover, the arguments can be strings for the following cases:<br />
 1. <code>add</code> two strings to concatenate them<br />
 2. <code>add</code> a string/integer to an integer/string to concatenate them<br />
-3. <code>mul</code> a string by an integer to repeate the string a number of times  </p>
+3. <code>mul</code> a string by an integer to repeat the string certain times  </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">add z 'Hello' 'World'
 prt $z
 
@@ -164,7 +164,7 @@ prt $z
 </div>
 
 <h2 id="jump">Jump</h2>
-<p>In Runtime Script, you can insert labels to any places in your program, and jump to a specifc lable using the <code>jmp</code> instruction.</p>
+<p>In Runtime Script, you can insert labels to any places in your program, and jump to a specific label using the <code>jmp</code> instruction.</p>
 <pre class="code-block"><code>jmp L
 </code></pre>
 
@@ -177,7 +177,7 @@ prt 'skipped'
 prt 'end'
 </div>
 
-<p>There are four other jump instructions which only jump when a certain condition is true.</p>
+<p>Four other jump instructions only jump when a certain condition is true.</p>
 <pre class="code-block"><code>jeq V V L
 jne V V L
 jlt V V L
@@ -201,7 +201,7 @@ jne $i 5 loop
 <h2 id="data-structures">Data Structures</h2>
 <p>Two data structures are provided in Runtime Script, i.e. <code>list</code> and <code>map</code>, and they are used as containers.</p>
 <h3>List</h3>
-<p>The literal <code>[]</code> represents an empty list. Usually it is used when defining a new list.</p>
+<p>The literal <code>[]</code> represents an empty list. Usually, it is used when defining a new list.</p>
 <blockquote>
 <p>Defining a non-empty list is not supported.</p>
 </blockquote>
@@ -244,7 +244,7 @@ prt $str
 </div>
 
 <blockquote>
-<p><code>pop</code> or <code>pol</code> from an empty stirng will result in an empty string (<code>''</code>).</p>
+<p><code>pop</code> or <code>pol</code> from an empty string will result in an empty string (<code>''</code>).</p>
 </blockquote>
 <h3>Map</h3>
 <p>The literal <code>{}</code> represents an empty map.</p>
@@ -253,7 +253,7 @@ prt $str
 get M V N
 </code></pre>
 
-<p>The keys are always strings, and the values can be any date types.</p>
+<p>The keys are always strings, and the values can be any data types.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 300px;">let map {}
 
 put $map 0 'Zero'
@@ -304,8 +304,8 @@ prt 'Bye'
 </div>
 
 <p>In the above example, the program is paused for one second before printing the 'Bye' message.</p>
-<p>In the following example, we are going to "slow-print" the hello wolrd message.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 230px;">let msg 'Hello, wrold!'
+<p>In the following example, we are going to "slow-print" the hello world message.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 230px;">let msg 'Hello, world!'
 
 #next
 pol $msg c
@@ -318,7 +318,7 @@ prt ''
 </div>
 
 <p>You may find that the first <code>prt</code> has two arguments, the first one is the content to be printed, while the second one is the terminator character, which is optional and is a newline character by default.</p>
-<p>In the above example, we are trying to print each individual character in the same line, thus we indicate the terminator as an empty string.</p>
+<p>In the above example, we are trying to print each character in the same line, thus we indicate the terminator as an empty string.</p>
 <h3>Random</h3>
 <p>Get a random integer between two integers, where the ending integer is not included.</p>
 <pre class="code-block"><code>rnd N V V
@@ -358,14 +358,14 @@ prt $direction
 
 <p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
 <h2 id="canvas">Canvas</h2>
-<p>Runtime Script natively support a canvas for displaying graphics.The default canvas is a 24 by 24 pixel matrix.</p>
+<p>Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.</p>
 <div class="runtime-embedded-box runtime-show-canvas runtime-hide-console" style="width: 100%; height: 170px;">drw 0 0 1
 </div>
 
 <p>You can find there is a black area in the above IDE. After clicking the <code>run</code> button, you will see a white dot drawn on the left-top corner.</p>
 <p>The origin of the canvas is at the left-top, and row/column numbers are zero-based.</p>
 <p>For instance, <code>drw 0 2 1</code> means filling the dot on row 0 (1st row) column 2 (3rd column) with white (<code>1</code>).</p>
-<p>The suported instructions for canvas operations are:</p>
+<p>The supported instructions for canvas operations are:</p>
 <pre class="code-block"><code>clr
 drw V V V
 pxl N V V
@@ -376,7 +376,7 @@ pxl N V V
 <li><code>drw</code>: fill the pixel at (V1, V2) with color V3</li>
 <li><code>pxl</code>: get the color of the pixel (V1, V2)</li>
 </ol>
-<p>The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2 second interval, then print the 'Hello World!' in the console.</p>
+<p>The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2-second interval, then prints the 'Hello World!' in the console.</p>
 <div class="runtime-embedded-box runtime-show-canvas" style="width: 100%; height: 250px;">clr
 let x 9
 #draw_dot
@@ -407,9 +407,9 @@ drw 0 15 15 / dark gray
 </div>
 
 <h2 id="advanced">Advanced</h2>
-<p>Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.</p>
+<p>Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with caution.</p>
 <blockquote>
-<p>Indentations in Runtime Script are only for readability, they have no effect on the execution.</p>
+<p>Indentations in Runtime Script are only for readability, they do not affect the execution.</p>
 </blockquote>
 <h3>If-else</h3>
 <p>Executing certain lines of statements depends on the comparison result of two values.</p>
@@ -421,7 +421,7 @@ fin
 
 <ol>
 <li><code>ife</code>: if V1 equals V2, execute the statements below until <code>els</code> or <code>fin</code> encountered</li>
-<li><code>ifg</code>: similiar as <code>ife</code>, but check if V1 is greater than V2 instead</li>
+<li><code>ifg</code>: similar as <code>ife</code>, but check if V1 is greater than V2 instead</li>
 <li><code>els</code>: if the above check is false, execute the statements below until <code>fin</code> encountered</li>
 <li><code>fin</code>: the end of if-else</li>
 </ol>
@@ -467,7 +467,7 @@ cal F
 <blockquote>
 <p>Do not exit a function using jump statements.</p>
 </blockquote>
-<p>A 'random' function is defined in the folling program, and it is called twice. </p>
+<p>A 'random' function is defined in the following program, and it is called twice. </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
  prt 'Your random number:'
  rnd n 1 10

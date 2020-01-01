@@ -2,12 +2,12 @@
 
 Runtime Script is a tiny programming language I created for fun since early 2019.
 Its syntax is assembly-like and greatly inspired by the game [Shenzhen IO](https://store.steampowered.com/app/504210/SHENZHEN_IO/).
-Runtime Script is written in Javascript, so that it can be parsed and executed directly in the browser.
+Runtime Script is written in Javascript so that it can be parsed and executed directly in the browser.
 
 Using Runtime Script, you can develop mini games (e.g. [Flappy Bird](https://runtime.siwei.dev/?src=bird)), solve algorithm problems (e.g. [Selection Sort](https://runtime.siwei.dev/?src=sort)), build wedgets (e.g. [Digital Clock](https://runtime.siwei.dev/?src=clock)), and do a lot more.
 
 ## Hello World
-Just like any other programming languages, the first program we are going to try is showing an `Hello World` message.
+Just like any other programming language, the first program we are going to try is showing a `Hello World` message.
 
 Click the `Run` button below to run the program.
 
@@ -16,13 +16,13 @@ Click the `Run` button below to run the program.
 prt 'Hello World!'
 ```
 
-In the above embedded editor, you can write your program on the left and see the output of your program on the right after clicking the `Run` button.
+In the embedded editor above, you can write your program on the left and see the output of your program on the right after clicking the `Run` button.
 
 To run the program one more time, just click the `Run` button again after the previous execution is finished.
 
 To clear the console contents, you can click the console panel to focus on it, then type `clear` and press `Enter` key.
 
-Let's get back to the program itself. The above `Hello World` program has just one line code, which has a keyword `prt` and a quoted string `'Hello World'`
+Let's get back to the program itself. The above `Hello World` program has just one-line code, which contains a keyword `prt` and a quoted string `'Hello World'`.
 
 ```code-block
 prt 'Hello World!'
@@ -31,7 +31,7 @@ prt 'Hello World!'
 In Runtime Script, we call such a line of code a `statement`.
 Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
 
-The frist line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (`/`), it can be after a statement with the same line or occupies the whole line.
+The first line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (`/`), it can be after a statement with the same line or occupies the whole line.
 
 ## Variables
 To declare a variable, we use the `let` keyword, followed by the variable name and its value.
@@ -48,7 +48,7 @@ let x 'abc'
 prt $x
 ```
 
-In the above example, we first create a new variable called `x` with an initial value of `5`, then print `x`. Now `x` is an integer.
+In the above example, we first create a new variable called `x` with an initial value of `5`, then print `x`. Now, `x` is an integer.
 
 Then we set a new value `'abc'`, which is a string, to the variable `x` and print it again.
 
@@ -124,7 +124,7 @@ prt $z
 Moreover, the arguments can be strings for the following cases:  
 1. `add` two strings to concatenate them  
 2. `add` a string/integer to an integer/string to concatenate them  
-3. `mul` a string by an integer to repeate the string a number of times  
+3. `mul` a string by an integer to repeat the string certain times  
 
 ```runtime-embedded-box-0-190
 add z 'Hello' 'World'
@@ -138,7 +138,7 @@ prt $z
 ```
 
 ## Jump
-In Runtime Script, you can insert labels to any places in your program, and jump to a specifc lable using the `jmp` instruction.
+In Runtime Script, you can insert labels to any places in your program, and jump to a specific label using the `jmp` instruction.
 ```code-block
 jmp L
 ```
@@ -153,7 +153,7 @@ prt 'skipped'
 prt 'end'
 ```
 
-There are four other jump instructions which only jump when a certain condition is true.
+Four other jump instructions only jump when a certain condition is true.
 
 ```code-block
 jeq V V L
@@ -181,7 +181,7 @@ The above example demonstrates printing and incrementing `i` from 0 to 4.
 Two data structures are provided in Runtime Script, i.e. `list` and `map`, and they are used as containers.
 
 ### List
-The literal `[]` represents an empty list. Usually it is used when defining a new list.
+The literal `[]` represents an empty list. Usually, it is used when defining a new list.
 
 > Defining a non-empty list is not supported.
 
@@ -228,7 +228,7 @@ psh $str 'ef'
 prt $str
 ```
 
-> `pop` or `pol` from an empty stirng will result in an empty string (`''`).
+> `pop` or `pol` from an empty string will result in an empty string (`''`).
 
 ### Map
 
@@ -241,7 +241,7 @@ put M V V
 get M V N
 ```
 
-The keys are always strings, and the values can be any date types.
+The keys are always strings, and the values can be any data types.
 
 ```runtime-embedded-box-0-300
 let map {}
@@ -302,10 +302,10 @@ prt 'Bye'
 
 In the above example, the program is paused for one second before printing the 'Bye' message.
 
-In the following example, we are going to "slow-print" the hello wolrd message.
+In the following example, we are going to "slow-print" the hello world message.
 
 ```runtime-embedded-box-0-230
-let msg 'Hello, wrold!'
+let msg 'Hello, world!'
 
 #next
 pol $msg c
@@ -319,7 +319,7 @@ prt ''
 
 You may find that the first `prt` has two arguments, the first one is the content to be printed, while the second one is the terminator character, which is optional and is a newline character by default.
 
-In the above example, we are trying to print each individual character in the same line, thus we indicate the terminator as an empty string.
+In the above example, we are trying to print each character in the same line, thus we indicate the terminator as an empty string.
 
 ### Random
 Get a random integer between two integers, where the ending integer is not included.
@@ -366,7 +366,7 @@ You can check a specific key's code [here](https://keycode.info/).
 
 ## Canvas
 
-Runtime Script natively support a canvas for displaying graphics.The default canvas is a 24 by 24 pixel matrix.
+Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.
 
 ```runtime-embedded-box-3-170
 drw 0 0 1
@@ -378,7 +378,7 @@ The origin of the canvas is at the left-top, and row/column numbers are zero-bas
 
 For instance, `drw 0 2 1` means filling the dot on row 0 (1st row) column 2 (3rd column) with white (`1`).
 
-The suported instructions for canvas operations are:
+The supported instructions for canvas operations are:
 ```code-block
 clr
 drw V V V
@@ -389,7 +389,7 @@ pxl N V V
 2. `drw`: fill the pixel at (V1, V2) with color V3
 3. `pxl`: get the color of the pixel (V1, V2)
 
-The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2 second interval, then print the 'Hello World!' in the console.
+The canvas and console can work together, in the following example, it prints three dots on the canvas with a 0.2-second interval, then prints the 'Hello World!' in the console.
 
 ```runtime-embedded-box-1-250
 clr
@@ -424,9 +424,9 @@ drw 0 15 15	/ dark gray
 ```
 
 ## Advanced
-Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with cautions.
+Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with caution.
 
-> Indentations in Runtime Script are only for readability, they have no effect on the execution.
+> Indentations in Runtime Script are only for readability, they do not affect the execution.
 
 ### If-else
 Executing certain lines of statements depends on the comparison result of two values.
@@ -438,7 +438,7 @@ fin
 ```
 
 1. `ife`: if V1 equals V2, execute the statements below until `els` or `fin` encountered
-2. `ifg`: similiar as `ife`, but check if V1 is greater than V2 instead
+2. `ifg`: similar as `ife`, but check if V1 is greater than V2 instead
 3. `els`: if the above check is false, execute the statements below until `fin` encountered
 4. `fin`: the end of if-else
 
@@ -484,7 +484,7 @@ cal F
 
 > Do not exit a function using jump statements.
 
-A 'random' function is defined in the folling program, and it is called twice. 
+A 'random' function is defined in the following program, and it is called twice. 
 ```runtime-embedded-box-0-190
 def random
  prt 'Your random number:'
