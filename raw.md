@@ -364,6 +364,21 @@ prt $direction
 ```
 You can check a specific key's code [here](https://keycode.info/).
 
+### atoi & itoa
+There are two instructions for atoi (integer to ASCII) and itoa (ASCII to integer) respectively.
+```code-block
+a2i N V
+i2a N V
+```
+
+```runtime-embedded-box-0-140
+a2i i A
+prt $i
+
+i2a a 70
+prt $a
+```
+
 ## Canvas
 
 Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.
