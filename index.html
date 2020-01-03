@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 01 Jan, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 03 Jan, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -235,11 +235,11 @@ prt $list
 <p>List instructions also work on strings. We can regard a string as a list and each character is an item in this list.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 200px;">let str 'abcz'
 
-pop $str i
+pop $str i      / get last character
 prt $i
 
-psh $str 'd'
-psh $str 'ef'
+psh $str 'd'    / append a character to the end
+psh $str 'ef'   / append a string to the end
 prt $str
 </div>
 
@@ -271,17 +271,17 @@ prt $val
 </div>
 
 <p>If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.</p>
-<p>If the key in the <code>get</code> statement does not present in the map, a <code>$nil</code> value will be returned.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">let map {}
 
 put $map 0 'zero'
 put $map 1 'true'
 
-put $map 0 'false'
+put $map 0 'false'  / update existing key's value
 
 prt $map
 </div>
 
+<p>If the key in the <code>get</code> statement does not present in the map, a <code>$nil</code> value will be returned.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3>User input</h3>
 <p>Get a user input string from the console.</p>
@@ -299,7 +299,7 @@ prt $i
 </code></pre>
 
 <div class="runtime-embedded-box " style="width: 100%; height: 110px;">prt 'Hello'
-slp 1000
+slp 1000    / 1000 milliseconds (1 second)
 prt 'Bye'
 </div>
 
@@ -344,7 +344,7 @@ prt $y
 #start
 let key $lastkey
 slp 200
-jeq $key -1 start
+jeq $key -1 start   / $lastkey is -1 if user pressed nothing
 
 let key_map {}
 put $key_map 37 'Left'
@@ -358,7 +358,7 @@ prt $direction
 
 <p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
 <h3>atoi &amp; itoa</h3>
-<p>There are two instructions for atoi (integer to ASCII) and itoa (ASCII to integer) respectively.</p>
+<p>There are two instructions for atoi (ASCII to integer) and itoa (integer to ASCII) respectively.</p>
 <pre class="code-block"><code>a2i N V
 i2a N V
 </code></pre>
@@ -376,8 +376,8 @@ prt $a
 </div>
 
 <p>You can find there is a black area in the above IDE. After clicking the <code>run</code> button, you will see a white dot drawn on the left-top corner.</p>
-<p>The origin of the canvas is at the left-top, and row/column numbers are zero-based.</p>
-<p>For instance, <code>drw 0 2 1</code> means filling the dot on row 0 (1st row) column 2 (3rd column) with white (<code>1</code>).</p>
+<p>The origin of the canvas is at the left-top, and column/row numbers are zero-based.</p>
+<p>For instance, <code>drw 0 2 1</code> means filling the dot on column 0 (1st column) row 2 (3rd row) with white (<code>1</code>).</p>
 <p>The supported instructions for canvas operations are:</p>
 <pre class="code-block"><code>clr
 drw V V V
@@ -434,15 +434,15 @@ fin
 
 <ol>
 <li><code>ife</code>: if V1 equals V2, execute the statements below until <code>els</code> or <code>fin</code> encountered</li>
-<li><code>ifg</code>: similar as <code>ife</code>, but check if V1 is greater than V2 instead</li>
-<li><code>els</code>: if the above check is false, execute the statements below until <code>fin</code> encountered</li>
+<li><code>ifg</code>: similar to <code>ife</code>, but check if V1 is greater than V2 instead</li>
+<li><code>els</code>: (optional) if the above condition is false, execute the statements below until <code>fin</code> encountered</li>
 <li><code>fin</code>: the end of if-else</li>
 </ol>
 <blockquote>
 <p>Nested if-else is not supported.</p>
 </blockquote>
 <p>If-else is a convenient way to write condition checks, it may save your time writing complicated codes with jumps and labels.</p>
-<p>The following program checking the equality of two numbers by using if-else</p>
+<p>The following program checking the equality of two numbers by using <code>if-else</code></p>
 <div class="runtime-embedded-box " style="width: 100%; height: 180px;">let a 0
 let b 1
 ife $a $b
@@ -464,7 +464,7 @@ prt 'not equal'
 </div>
 
 <h3>Function</h3>
-<p>Define a block of statements for code reuse.</p>
+<p>Defining a block of statements for code reuse.</p>
 <pre class="code-block"><code>def N
 ret
 end
@@ -480,7 +480,7 @@ cal F
 <blockquote>
 <p>Do not exit a function using jump statements.</p>
 </blockquote>
-<p>A 'random' function is defined in the following program, and it is called twice. </p>
+<p>In the example below, a 'random' function is defined and it is invoked twice. </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
  prt 'Your random number:'
  rnd n 1 10
@@ -491,7 +491,7 @@ cal random
 cal random
 </div>
 
-<p>You can call a function inside a function.</p>
+<p>You can invoke a function inside a function.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 260px;">def func_a
  prt '== A start'
  cal func_b

@@ -220,11 +220,11 @@ List instructions also work on strings. We can regard a string as a list and eac
 ```runtime-embedded-box-0-200
 let str 'abcz'
 
-pop $str i
+pop $str i		/ get last character
 prt $i
 
-psh $str 'd'
-psh $str 'ef'
+psh $str 'd'	/ append a character to the end
+psh $str 'ef'	/ append a string to the end
 prt $str
 ```
 
@@ -262,18 +262,18 @@ prt $val
 
 If you put a key-value pair where the key already exists in the map, the old value will be replaced with the new one.
 
-If the key in the `get` statement does not present in the map, a `$nil` value will be returned.
-
 ```runtime-embedded-box-0-190
 let map {}
 
 put $map 0 'zero'
 put $map 1 'true'
 
-put $map 0 'false'
+put $map 0 'false'	/ update existing key's value
 
 prt $map
 ```
+
+If the key in the `get` statement does not present in the map, a `$nil` value will be returned.
 
 ## Miscellaneous
 ### User input
@@ -296,7 +296,7 @@ slp V
 
 ```runtime-embedded-box-0-110
 prt 'Hello'
-slp 1000
+slp 1000	/ 1000 milliseconds (1 second)
 prt 'Bye'
 ```
 
@@ -351,7 +351,7 @@ prt 'Press an arrow key'
 #start
 let key $lastkey
 slp 200
-jeq $key -1 start
+jeq $key -1 start	/ $lastkey is -1 if user pressed nothing
 
 let key_map {}
 put $key_map 37 'Left'
@@ -365,7 +365,7 @@ prt $direction
 You can check a specific key's code [here](https://keycode.info/).
 
 ### atoi & itoa
-There are two instructions for atoi (integer to ASCII) and itoa (ASCII to integer) respectively.
+There are two instructions for atoi (ASCII to integer) and itoa (integer to ASCII) respectively.
 ```code-block
 a2i N V
 i2a N V
@@ -389,9 +389,9 @@ drw 0 0 1
 
 You can find there is a black area in the above IDE. After clicking the `run` button, you will see a white dot drawn on the left-top corner.
 
-The origin of the canvas is at the left-top, and row/column numbers are zero-based.
+The origin of the canvas is at the left-top, and column/row numbers are zero-based.
 
-For instance, `drw 0 2 1` means filling the dot on row 0 (1st row) column 2 (3rd column) with white (`1`).
+For instance, `drw 0 2 1` means filling the dot on column 0 (1st column) row 2 (3rd row) with white (`1`).
 
 The supported instructions for canvas operations are:
 ```code-block
@@ -453,15 +453,15 @@ fin
 ```
 
 1. `ife`: if V1 equals V2, execute the statements below until `els` or `fin` encountered
-2. `ifg`: similar as `ife`, but check if V1 is greater than V2 instead
-3. `els`: if the above check is false, execute the statements below until `fin` encountered
+2. `ifg`: similar to `ife`, but check if V1 is greater than V2 instead
+3. `els`: (optional) if the above condition is false, execute the statements below until `fin` encountered
 4. `fin`: the end of if-else
 
 > Nested if-else is not supported.
 
 If-else is a convenient way to write condition checks, it may save your time writing complicated codes with jumps and labels.
 
-The following program checking the equality of two numbers by using if-else
+The following program checking the equality of two numbers by using `if-else`
 ```runtime-embedded-box-0-180
 let a 0
 let b 1
@@ -484,7 +484,7 @@ prt 'not equal'
 ```
 
 ### Function
-Define a block of statements for code reuse.
+Defining a block of statements for code reuse.
 ```code-block
 def N
 ret
@@ -499,7 +499,7 @@ cal F
 
 > Do not exit a function using jump statements.
 
-A 'random' function is defined in the following program, and it is called twice. 
+In the example below, a 'random' function is defined and it is invoked twice. 
 ```runtime-embedded-box-0-190
 def random
  prt 'Your random number:'
@@ -511,7 +511,7 @@ cal random
 cal random
 ```
 
-You can call a function inside a function.
+You can invoke a function inside a function.
 ```runtime-embedded-box-0-260
 def func_a
  prt '== A start'
