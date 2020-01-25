@@ -479,7 +479,7 @@ cal F
 </ol>
 <blockquote>
 <p>Do not exit a function using jump statements.</p>
-<p>The function code blocks in Runtime Script is actually a pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or uesd in the functions are global.</p>
+<p>The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or uesd in the functions are global.</p>
 </blockquote>
 <p>In the example below, a 'random' function is defined and it is invoked twice. </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
@@ -534,7 +534,7 @@ pop $s res      / only 1 num left in stack
 prt $res
 </div>
 
-<p>You may wonder if the functions in Runtime Script can accept arguments, the answer is yes. you can pass primitive values (integers and strings only) to the function you are calling, and get these values in the function by indexing ($0, $1, $2 and so on).</p>
+<p>You may wonder if the functions in Runtime Script can accept arguments, the answer is yes. You can pass primitive values (integers and strings only) to the function you are calling, and get these values in the function by indexing ($0, $1, $2 and so on).</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 210px;">def func
  prt $0
  prt $1
