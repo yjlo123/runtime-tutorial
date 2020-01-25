@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 03 Jan, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 26 Jan, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -479,6 +479,7 @@ cal F
 </ol>
 <blockquote>
 <p>Do not exit a function using jump statements.</p>
+<p>The function code blocks in Runtime Script is actually a pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or uesd in the functions are global.</p>
 </blockquote>
 <p>In the example below, a 'random' function is defined and it is invoked twice. </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
@@ -531,6 +532,18 @@ psh $s $num
 cal factorial   / initial func call
 pop $s res      / only 1 num left in stack
 prt $res
+</div>
+
+<p>You may wonder if the functions in Runtime Script can accept arguments, the answer is yes. you can pass primitive values (integers and strings only) to the function you are calling, and get these values in the function by indexing ($0, $1, $2 and so on).</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 210px;">def func
+ prt $0
+ prt $1
+end
+
+cal func 5 &quot;abc&quot;
+
+/ undefined outside the function
+prt $0
 </div>
 	</section>
 
