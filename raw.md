@@ -4,7 +4,7 @@ Runtime Script is a tiny programming language I created for fun since early 2019
 Its syntax is assembly-like and greatly inspired by the game [Shenzhen IO](https://store.steampowered.com/app/504210/SHENZHEN_IO/).
 Runtime Script is written in Javascript so that it can be parsed and executed directly in the browser.
 
-Using Runtime Script, you can develop mini games (e.g. [Flappy Bird](https://runtime.siwei.dev/?src=bird)), solve algorithm problems (e.g. [Selection Sort](https://runtime.siwei.dev/?src=sort)), build wedgets (e.g. [Digital Clock](https://runtime.siwei.dev/?src=clock)), and do a lot more.
+Using Runtime Script, you can develop mini games (e.g. [Flappy Bird](https://runtime.siwei.dev/?src=bird)), solve algorithm problems (e.g. [Selection Sort](https://runtime.siwei.dev/?src=sort)), build wedgets (e.g. [Digital Clock](https://runtime.siwei.dev/?src=clock)), and do a lot more. (More examples [here](https://github.com/yjlo123/runtime-script#examples))
 
 ## Hello World
 Just like any other programming language, the first program we are going to try is showing a `Hello World` message.
@@ -22,7 +22,7 @@ To run the program one more time, just click the `Run` button again after the pr
 
 To clear the console contents, you can click the console panel to focus on it, then type `clear` and press `Enter` key.
 
-Let's get back to the program itself. The above `Hello World` program has just one-line code, which contains a keyword `prt` and a quoted string `'Hello World'`.
+Let's get back to the program itself. The above `Hello World` program has only one-line code, which contains a keyword `prt` and a quoted string `'Hello World'`.
 
 ```code-block
 prt 'Hello World!'
@@ -31,7 +31,7 @@ prt 'Hello World!'
 In Runtime Script, we call such a line of code a `statement`.
 Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
 
-The first line in the above example is a comment, it is for your notation purpose and simply ignored by the execution. A comment starts with a slash (`/`), it can be after a statement with the same line or occupies the whole line.
+The first line in the above example is a comment, it is for your notation purpose and simply ignored by the evaluator. A comment starts with a slash (`/`), it can be after a statement with the same line or occupy the whole line.
 
 ## Variables
 To declare a variable, we use the `let` keyword, followed by the variable name and its value.
@@ -48,13 +48,13 @@ let x 'abc'
 prt $x
 ```
 
-In the above example, we first create a new variable called `x` with an initial value of `5`, then print `x`. Now, `x` is an integer.
+In the above example, we firstly create a new variable called `x` with an initial value of `5`, then print `x`.
 
 Then we set a new value `'abc'`, which is a string, to the variable `x` and print it again.
 
 ## Data Types
 
-In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`). Besides, there are another two advanced data types, `list` and `map`, details about these two data types will be explained in the Data Structure section.
+In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`). Besides, there are another two advanced data types, `list` and `map`, and details about these two will be explained in the Data Structure section.
 
 We can check a variable or value's data type by using the `typ` instruction.
 ```code-block
@@ -121,24 +121,37 @@ mod z $x $y
 prt $z
 ```
 
-Moreover, the arguments can be strings for the following cases:  
+Moreover, the argument can be non-integer for the following cases:  
 1. `add` two strings to concatenate them  
 2. `add` a string/integer to an integer/string to concatenate them  
 3. `mul` a string by an integer to repeat the string certain times  
+4. `add` `$nil` with an integer will convert this integer to a character (Decimal to ASCII)  
+5. `sub` a character string by `$nil` will convert this character to an integer (ASCII to Decimal)  
 
-```runtime-embedded-box-0-190
+```runtime-embedded-box-0-400
+/ Case 1
 add z 'Hello' 'World'
 prt $z
 
+/ Case 2
 add z 'abc' 5
 prt $z
 
+/ Case 3
 mul z 'Hi' 3
+prt $z
+
+/ Case 4
+add z $nil 65
+prt $z
+
+/ Case 5
+sub z 'A' $nil
 prt $z
 ```
 
 ## Jump
-In Runtime Script, you can insert labels to any places in your program, and jump to a specific label using the `jmp` instruction.
+In Runtime Script, you can insert labels to any places in your program and jump to a specific label using the `jmp` instruction.
 ```code-block
 jmp L
 ```
@@ -346,7 +359,7 @@ prt $y
 
 ### User Key Press
 There is a special value, `$lastkey`, which records the user's last pressed key code.
-```runtime-embedded-box-0-300
+```runtime-embedded-box-0-310
 prt 'Press an arrow key'
 #start
 let key $lastkey
@@ -364,21 +377,6 @@ prt $direction
 ```
 You can check a specific key's code [here](https://keycode.info/).
 
-### atoi & itoa
-There are two instructions for atoi (ASCII to integer) and itoa (integer to ASCII) respectively.
-```code-block
-a2i N V
-i2a N V
-```
-
-```runtime-embedded-box-0-140
-a2i i A
-prt $i
-
-i2a a 70
-prt $a
-```
-
 ## Canvas
 
 Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.
@@ -387,9 +385,9 @@ Runtime Script natively supports a canvas for displaying graphics. The default c
 drw 0 0 1
 ```
 
-You can find there is a black area in the above IDE. After clicking the `run` button, you will see a white dot drawn on the left-top corner.
+You can find there is a black area on the right of the above editor. After clicking the `run` button, you will see a white dot drawn on the top-left corner.
 
-The origin of the canvas is at the left-top, and column/row numbers are zero-based.
+The origin of the canvas is at the top-left, and column/row numbers are zero-based.
 
 For instance, `drw 0 2 1` means filling the dot on column 0 (1st column) row 2 (3rd row) with white (`1`).
 
@@ -419,7 +417,7 @@ prt 'Hello World!'
 
 Runtime Script canvas suppots 16 colors.
 
-```runtime-embedded-box-3-170
+```runtime-embedded-box-3-340
 drw 0 0 0	/ black
 drw 0 1 1	/ white
 drw 0 2 2	/ yellow
