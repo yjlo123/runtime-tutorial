@@ -484,7 +484,7 @@ prt 'not equal'
 ### Function
 Defining a block of statements for code reuse.
 ```code-block
-def N
+def F
 ret
 end
 cal F
