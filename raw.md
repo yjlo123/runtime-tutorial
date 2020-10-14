@@ -457,7 +457,7 @@ fin
 
 > Nested if-else is not supported.
 
-If-else is a convenient way to write condition checks, it may save your time writing complicated codes with jumps and labels.
+If-else is a convenient way to write condition checks, it may save your time writing convoluted codes with jumps and labels.
 
 The following program checking the equality of two numbers by using `if-else`
 ```runtime-embedded-box-0-180
@@ -482,7 +482,7 @@ prt 'not equal'
 ```
 
 ### Function
-Defining a block of statements for code reuse.
+Functions define blocks of statements for code reuse.
 ```code-block
 def F
 ret
