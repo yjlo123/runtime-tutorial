@@ -472,16 +472,16 @@ cal F
 </code></pre>
 
 <ol>
-<li><code>def</code>: the head of a function definition with the function name</li>
-<li><code>ret</code>: jump to the line after the previous function call</li>
-<li><code>end</code>: the end of the function definition, jump to the line after the previous function call</li>
+<li><code>def</code>: the head of a function definition with a name</li>
+<li><code>ret</code>: jump to the line below the previous function call</li>
+<li><code>end</code>: the end of the function definition, jump to the line below the previous function call</li>
 <li><code>cal</code>: jump to the function head by name</li>
 </ol>
 <blockquote>
-<p>Do not exit a function using jump statements.</p>
-<p>The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or uesd in the functions are global.</p>
+<p>Do not use jump statements to exit a function.</p>
+<p>The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or used in the functions are global.</p>
 </blockquote>
-<p>In the example below, a 'random' function is defined and it is invoked twice. </p>
+<p>In the example below, a 'random' function is defined and then invoked twice. </p>
 <div class="runtime-embedded-box " style="width: 100%; height: 190px;">def random
  prt 'Your random number:'
  rnd n 1 10

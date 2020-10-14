@@ -490,16 +490,16 @@ end
 cal F
 ```
 
-1. `def`: the head of a function definition with the function name
-2. `ret`: jump to the line after the previous function call
-3. `end`: the end of the function definition, jump to the line after the previous function call
+1. `def`: the head of a function definition with a name
+2. `ret`: jump to the line below the previous function call
+3. `end`: the end of the function definition, jump to the line below the previous function call
 4. `cal`: jump to the function head by name
 
-> Do not exit a function using jump statements.
+> Do not use jump statements to exit a function.
 
-> The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or uesd in the functions are global.
+> The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or used in the functions are global.
 
-In the example below, a 'random' function is defined and it is invoked twice. 
+In the example below, a 'random' function is defined and then invoked twice. 
 ```runtime-embedded-box-0-190
 def random
  prt 'Your random number:'
