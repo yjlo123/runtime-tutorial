@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 14 Oct, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 17 Oct, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -370,6 +370,15 @@ prt $direction
 </div>
 
 <p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
+<h3>Parsing</h3>
+<p>Parsing strings to lists or maps could be tedious, no worries, there is an instruction for it.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 150px;">prs list '[1,2,3]'
+prt $list
+
+prs map '{&quot;key&quot;: 123}'
+prt $map
+</div>
+
 <h2 id="canvas">Canvas</h2>
 <p>Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.</p>
 <div class="runtime-embedded-box runtime-show-canvas runtime-hide-console" style="width: 100%; height: 170px;">drw 0 0 1

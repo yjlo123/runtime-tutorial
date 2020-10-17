@@ -377,6 +377,16 @@ prt $direction
 ```
 You can check a specific key's code [here](https://keycode.info/).
 
+### Parsing
+Parsing strings to lists or maps could be tedious, no worries, there is an instruction for it.
+```runtime-embedded-box-0-150
+prs list '[1,2,3]'
+prt $list
+
+prs map '{"key": 123}'
+prt $map
+```
+
 ## Canvas
 
 Runtime Script natively supports a canvas for displaying graphics. The default canvas is a 24-by-24 pixel matrix.
