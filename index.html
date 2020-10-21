@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 17 Oct, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 21 Oct, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -261,9 +261,12 @@ prt $str
 </blockquote>
 <h3>Map</h3>
 <p>The literal <code>{}</code> represents an empty map.</p>
-<p>There are two instructions, <code>put</code> and <code>get</code>, for adding a key-value pair and getting the value by its key respectively.</p>
+<p>There are two basic instructions, <code>put</code> and <code>get</code>, for adding a key-value pair and getting a value by its key respectively.</p>
+<p>Besides, <code>key</code> gets the list of keys in the map, and <code>del</code> can delete a key-value pair from the map.</p>
 <pre class="code-block"><code>put M V V
 get M V N
+key M N
+del M V
 </code></pre>
 
 <p>The keys are always strings, and the values can be any data types.</p>
@@ -388,13 +391,13 @@ prt $map
 <p>The origin of the canvas is at the top-left, and column/row numbers are zero-based.</p>
 <p>For instance, <code>drw 0 2 1</code> means filling the dot on column 0 (1st column) row 2 (3rd row) with white (<code>1</code>).</p>
 <p>The supported instructions for canvas operations are:</p>
-<pre class="code-block"><code>clr
+<pre class="code-block"><code>clr V*
 drw V V V
 pxl N V V
 </code></pre>
 
 <ol>
-<li><code>clr</code>: clear the canvas, in other words, fill the whole canvas with black</li>
+<li><code>clr</code>: clear the canvas, in other words, fill the whole canvas with black. The optional parameter is the dimension of the canvas, and its default value is 24</li>
 <li><code>drw</code>: fill the pixel at (V1, V2) with color V3</li>
 <li><code>pxl</code>: get the color of the pixel (V1, V2)</li>
 </ol>

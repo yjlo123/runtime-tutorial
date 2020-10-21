@@ -247,11 +247,15 @@ prt $str
 
 The literal `{}` represents an empty map.
 
-There are two instructions, `put` and `get`, for adding a key-value pair and getting the value by its key respectively.
+There are two basic instructions, `put` and `get`, for adding a key-value pair and getting a value by its key respectively.
+
+Besides, `key` gets the list of keys in the map, and `del` can delete a key-value pair from the map.
 
 ```code-block
 put M V V
 get M V N
+key M N
+del M V
 ```
 
 The keys are always strings, and the values can be any data types.
@@ -287,6 +291,8 @@ prt $map
 ```
 
 If the key in the `get` statement does not present in the map, a `$nil` value will be returned.
+
+
 
 ## Miscellaneous
 ### User input
@@ -403,12 +409,12 @@ For instance, `drw 0 2 1` means filling the dot on column 0 (1st column) row 2 (
 
 The supported instructions for canvas operations are:
 ```code-block
-clr
+clr V*
 drw V V V
 pxl N V V
 ```
 
-1. `clr`: clear the canvas, in other words, fill the whole canvas with black
+1. `clr`: clear the canvas, in other words, fill the whole canvas with black. The optional parameter is the dimension of the canvas, and its default value is 24
 2. `drw`: fill the pixel at (V1, V2) with color V3
 3. `pxl`: get the color of the pixel (V1, V2)
 
