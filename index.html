@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 21 Oct, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 29 Oct, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -450,9 +450,6 @@ fin
 <li><code>els</code>: (optional) if the above condition is false, execute the statements below until <code>fin</code> encountered</li>
 <li><code>fin</code>: the end of if-else</li>
 </ol>
-<blockquote>
-<p>Nested if-else is not supported.</p>
-</blockquote>
 <p>If-else is a convenient way to write condition checks, it may save your time writing convoluted codes with jumps and labels.</p>
 <p>The following program checking the equality of two numbers by using <code>if-else</code></p>
 <div class="runtime-embedded-box " style="width: 100%; height: 180px;">let a 0
@@ -473,6 +470,21 @@ jmp end_check
 #not_equal
 prt 'not equal'
 #end_check
+</div>
+
+<p>Nested if-else is supported.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 270px;">let username 'admin'
+let password 'abc'
+
+ife $username 'admin'
+ ife $password '123'
+  prt 'Logged in as Admin'
+ els
+  prt 'Wrong password'
+ fin
+els
+ prt 'Welcome guest'
+fin
 </div>
 
 <h3>Function</h3>

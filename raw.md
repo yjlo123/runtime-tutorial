@@ -471,8 +471,6 @@ fin
 3. `els`: (optional) if the above condition is false, execute the statements below until `fin` encountered
 4. `fin`: the end of if-else
 
-> Nested if-else is not supported.
-
 If-else is a convenient way to write condition checks, it may save your time writing convoluted codes with jumps and labels.
 
 The following program checking the equality of two numbers by using `if-else`
@@ -495,6 +493,22 @@ jmp end_check
 #not_equal
 prt 'not equal'
 #end_check
+```
+
+Nested if-else is supported.
+```runtime-embedded-box-0-270
+let username 'admin'
+let password 'abc'
+
+ife $username 'admin'
+ ife $password '123'
+  prt 'Logged in as Admin'
+ els
+  prt 'Wrong password'
+ fin
+els
+ prt 'Welcome guest'
+fin
 ```
 
 ### Function
