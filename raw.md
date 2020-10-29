@@ -54,7 +54,11 @@ Then we set a new value `'abc'`, which is a string, to the variable `x` and prin
 
 ## Data Types
 
-In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`). Besides, there are another two advanced data types, `list` and `map`, and details about these two will be explained in the Data Structure section.
+In Runtime Script, there are only two primitive data types, i.e. integer (`int`) and string (`str`). 
+
+Strings are values surrounded by single quotation marks (`'`).
+
+Besides, there are another two advanced data types, `list` and `map`, and details about these two will be explained in the Data Structure section.
 
 We can check a variable or value's data type by using the `typ` instruction.
 ```code-block
