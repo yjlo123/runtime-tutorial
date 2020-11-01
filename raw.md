@@ -194,8 +194,8 @@ jne $i 5 loop
 
 The above example demonstrates printing and incrementing `i` from 0 to 4.
 
-## Data Structures
-Two data structures are provided in Runtime Script, i.e. `list` and `map`, and they are used as containers.
+## List & Map
+Two container data structures are provided in Runtime Script, i.e. `list` and `map`.
 
 ### List
 The literal `[]` represents an empty list. Usually, it is used when defining a new list.
@@ -456,12 +456,11 @@ drw 0 14 14	/ gray (medium gray)
 drw 0 15 15	/ dark gray
 ```
 
-## Advanced
 Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with caution.
 
 > Indentations in Runtime Script are only for readability, they do not affect the execution.
 
-### If-else
+## If-else
 Executing certain lines of statements depends on the comparison result of two values.
 ```code-block
 ife V V
@@ -515,23 +514,19 @@ els
 fin
 ```
 
-### Function
+## Function
 Functions define blocks of statements for code reuse.
 ```code-block
 def F
-ret
+ret V*
 end
 cal F
 ```
 
 1. `def`: the head of a function definition with a name
-2. `ret`: jump to the line below the previous function call
+2. `ret`: jump to the line below the previous function call. (The returned value is optional)
 3. `end`: the end of the function definition, jump to the line below the previous function call
 4. `cal`: jump to the function head by name
-
-> Do not use jump statements to exit a function.
-
-> The function code blocks in Runtime Script are actually pseudo funtions, they do not have a scopped variable namespace or a closure environment, that means, all the variables declared or used in the functions are global.
 
 In the example below, a 'random' function is defined and then invoked twice. 
 ```runtime-embedded-box-0-190
@@ -544,6 +539,58 @@ end
 cal random
 cal random
 ```
+
+### Function parameters
+
+You can pass values as parameters to the function you are calling, and get these values in the function by indexing ($0, $1, $2 and so on).
+
+```runtime-embedded-box-0-160
+def func
+ prt $0
+ prt $1
+end
+
+cal func 5 "abc"
+```
+
+The `ret` instruction can terminate a function before reaching the end of it. Besides, it can optionally return a value to the caller's layer. The returned value is stored in `$ret`.
+
+```runtime-embedded-box-0-200
+def cube
+ mul r $0 $0
+ mul r $r $0
+ ret $r
+end
+
+cal cube 3
+prt $ret
+```
+
+> Function parameters are read-only. Assign their values to local variables if you want to modify them.
+
+### Function scope
+
+Variables defined outside functions are called global variables, you can access or modify global variables in any functions.
+
+Meanwhile, you can also define function scoped (local) variables, which is only accessible within the function where the variable is defined. A local variable must start with an underscore (`_`).
+
+```runtime-embedded-box-0-250
+let a 1       / define a global var
+
+def my_func
+ prt $a       / print the global var
+ let _a 2     / define a local var
+ prt $_a
+end
+
+cal my_func
+prt $_a       / local var is inaccessible here
+
+```
+
+Like local variables, labels defined in functions are invisible outside. And it is not allowed to jump to a golbal label from a function body.
+
+### Nested Function Call
 
 You can invoke a function inside a function.
 ```runtime-embedded-box-0-260
@@ -562,43 +609,19 @@ cal func_a
 ```
 
 Recursion is supported. The following program demonstrates the recursive version of calculating factorials.
-```runtime-embedded-box-0-470
+```runtime-embedded-box-0-290
 def factorial
- pop $s n
- ife $n 1		/ base case
-  psh $s $n
-  ret			/ return to last func call
+ ife $0 1            / base case
+  ret 1
  fin
- psh $s $n
- sub n1 $n 1	/ decrease param by 1
- psh $s $n1		/ param for recursion call
+ 
+ sub i $0 1
+ cal factorial $i    / invoke self
+ mul r $0 $ret
+ ret $r
+end                  / return to last func call
 
- cal factorial	/ recursion call
+cal factorial 5
+prt $ret
 
- pop $s n3
- pop $s n4		/ pop 2 nums from stack
- mul n5 $n3 $n4	/ get their product
- psh $s $n5		/ push back to stack
-end
-
-let num 5
-let s []		/ a temp param stack
-psh $s $num
-cal factorial	/ initial func call
-pop $s res		/ only 1 num left in stack
-prt $res
-```
-
-You may wonder if the functions in Runtime Script can accept arguments, the answer is yes. You can pass primitive values (integers and strings only) to the function you are calling, and get these values in the function by indexing ($0, $1, $2 and so on).
-
-```runtime-embedded-box-0-210
-def func
- prt $0
- prt $1
-end
-
-cal func 5 "abc"
-
-/ undefined outside the function
-prt $0
 ```
