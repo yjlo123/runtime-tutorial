@@ -29,7 +29,7 @@ prt 'Hello World!'
 ```
 
 In Runtime Script, we call such a line of code a `statement`.
-Each statement has an instruction keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
+Each statement has an command keyword, like `prt` in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.
 
 The first line in the above example is a comment, it is for your notation purpose and simply ignored by the evaluator. A comment starts with a slash (`/`), it can be after a statement with the same line or occupy the whole line.
 
@@ -60,7 +60,7 @@ Strings are values surrounded by single quotation marks (`'`).
 
 Besides, there are another two advanced data types, `list` and `map`, and details about these two will be explained in the Data Structure section.
 
-We can check a variable or value's data type by using the `typ` instruction.
+We can check a variable or value's data type by using the `typ` command.
 ```code-block
 typ N V
 ```
@@ -101,7 +101,7 @@ mod N V V
 
 Let's take addition as an example, the sum of the two values `V V` is assigned to the variable `N`, the variable `N` will be created if it has not been defined.
 
-The `div` instruction works as a floor division, thus the division result is always an integer.
+The `div` command works as a floor division, thus the division result is always an integer.
 
 Play around with the following examples to get familiar with these arithmetic operations.
 
@@ -155,7 +155,7 @@ prt $z
 ```
 
 ## Jump
-In Runtime Script, you can insert labels to any places in your program and jump to a specific label using the `jmp` instruction.
+In Runtime Script, you can insert labels to any places in your program and jump to a specific label using the `jmp` command.
 ```code-block
 jmp L
 ```
@@ -170,7 +170,7 @@ prt 'skipped'
 prt 'end'
 ```
 
-Four other jump instructions only jump when a certain condition is true.
+Four other jump commands only jump when a certain condition is true.
 
 ```code-block
 jeq V V L
@@ -202,21 +202,22 @@ The literal `[]` represents an empty list. Usually, it is used when defining a n
 
 > Defining a non-empty list is not supported.
 
-There are three instructions for list operations:
+There are three commands for list operations:
 
 ```code-block
-psh S V
+psh S V [V..]
 pop S N
 pol S N
+
+get S V N
+put S V V
 ```
 
-`psh` for appending a value to the end to the list, `pop` for extracting the last item from the list, and `pol` for extracting the first item from the list.
+`psh` for appending one or multiple values to the end to the list, `pop` for extracting the last item from the list, and `pol` for extracting the first item from the list.
 
-```runtime-embedded-box-0-320
+```runtime-embedded-box-0-270
 let list []
-psh $list 3
-psh $list 2
-psh $list 'a'
+psh $list 3 2 'a'
 prt $list
 
 / pop the last item
@@ -232,7 +233,7 @@ prt $list
 
 > `pop` or `pol` from an empty list will result in a `$nil`, which represents an empty value.
 
-List instructions also work on strings. We can regard a string as a list and each character is an item in this list.
+List commands also work on strings. We can regard a string as a list and each character is an item in this list.
 
 ```runtime-embedded-box-0-200
 let str 'abcz'
@@ -247,11 +248,23 @@ prt $str
 
 > `pop` or `pol` from an empty string will result in an empty string (`''`).
 
+Indexing on lists is supported.
+```runtime-embedded-box-0-200
+let list []
+psh $list 'apple' 'banana' 'orange'
+
+get $list 2 v       / index starts from 0
+prt $v
+
+put $list 1 'grape' / update a value in list
+prt $list
+```
+
 ### Map
 
 The literal `{}` represents an empty map.
 
-There are two basic instructions, `put` and `get`, for adding a key-value pair and getting a value by its key respectively.
+There are two basic commands, `put` and `get`, for adding a key-value pair and getting a value by its key respectively.
 
 Besides, `key` gets the list of keys in the map, and `del` can delete a key-value pair from the map.
 
@@ -264,7 +277,7 @@ del M V
 
 The keys are always strings, and the values can be any data types.
 
-```runtime-embedded-box-0-300
+```runtime-embedded-box-0-280
 let map {}
 
 put $map 0 'Zero'
@@ -296,7 +309,48 @@ prt $map
 
 If the key in the `get` statement does not present in the map, a `$nil` value will be returned.
 
+### Iterator
+We can iterate the elements in a list or the keys in a map using `for` and `nxt`.
+```code-block
+for N V
+nxt
+```
+```runtime-embedded-box-0-140
+let list []
+psh $list 1 2 'a' 'b'
+for i $list
+ prt $i
+nxt
+```
+If we try to iterate an integer, then it will loop through the integer from 0 to the given integer.
 
+Besides, the for loops can be nested.
+
+```runtime-embedded-box-0-190
+let list []
+psh $list 'a' 'b'
+for i $list
+ for j 3
+  prt $i ''
+  prt $j
+ nxt
+nxt
+```
+
+> Do not terminate a `for` loop before it finishes.
+
+### Length
+To get the length of list, string or the number of entries in a map, we can use the `len` command.
+```code-block
+len V N
+```
+
+```runtime-embedded-box-0-130
+let list []
+psh $list 1 2 3 'a' 'b' 'c'
+len $list length
+prt $length
+```
 
 ## Miscellaneous
 ### User input
@@ -388,7 +442,7 @@ prt $direction
 You can check a specific key's code [here](https://keycode.info/).
 
 ### Parsing
-Parsing strings to lists or maps could be tedious, no worries, there is an instruction for it.
+Parsing strings to lists or maps could be tedious, no worries, there is an command for it.
 ```runtime-embedded-box-0-150
 prs list '[1,2,3]'
 prt $list
@@ -411,7 +465,7 @@ The origin of the canvas is at the top-left, and column/row numbers are zero-bas
 
 For instance, `drw 0 2 1` means filling the dot on column 0 (1st column) row 2 (3rd row) with white (`1`).
 
-The supported instructions for canvas operations are:
+The supported commands for canvas operations are:
 ```code-block
 clr V*
 drw V V V
@@ -456,7 +510,7 @@ drw 0 14 14	/ gray (medium gray)
 drw 0 15 15	/ dark gray
 ```
 
-Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with caution.
+Runtime Script also has some advanced commands to mimic some high-level programming language statements, such as if-else and functions. These commands can make it more convenient to write programs, but we should use them with caution.
 
 > Indentations in Runtime Script are only for readability, they do not affect the execution.
 
@@ -553,7 +607,7 @@ end
 cal func 5 "abc"
 ```
 
-The `ret` instruction can terminate a function before reaching the end of it. Besides, it can optionally return a value to the caller's layer. The returned value is stored in `$ret`.
+The `ret` command can terminate a function before reaching the end of it. Besides, it can optionally return a value to the caller's layer. The returned value is stored in `$ret`.
 
 ```runtime-embedded-box-0-200
 def cube

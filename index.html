@@ -22,7 +22,7 @@
 <div class="wrapper">
 	<header>
 		<h1 class="page-title">Runtime Script</h1>
-		<p style="font-size:11px;color:gray;">Generated on 01 Nov, 2020</p>
+		<p style="font-size:11px;color:gray;">Generated on 29 Nov, 2020</p>
 		<p><em>by <a href="https://liusiwei.com" target="_blank">Siwei Liu</a></em></p>
 		<p class="view">
 			<a href="https://github.com/yjlo123/runtime-script" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
@@ -77,7 +77,7 @@ prt 'Hello World!'
 </code></pre>
 
 <p>In Runtime Script, we call such a line of code a <code>statement</code>.
-Each statement has an instruction keyword, like <code>prt</code> in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.</p>
+Each statement has an command keyword, like <code>prt</code> in this example, and an arbitrary number of arguments. All the keywords and arguments are separated by spaces.</p>
 <p>The first line in the above example is a comment, it is for your notation purpose and simply ignored by the evaluator. A comment starts with a slash (<code>/</code>), it can be after a statement with the same line or occupy the whole line.</p>
 <h2 id="variables">Variables</h2>
 <p>To declare a variable, we use the <code>let</code> keyword, followed by the variable name and its value.</p>
@@ -97,7 +97,7 @@ prt $x
 <p>In Runtime Script, there are only two primitive data types, i.e. integer (<code>int</code>) and string (<code>str</code>). </p>
 <p>Strings are values surrounded by single quotation marks (<code>'</code>).</p>
 <p>Besides, there are another two advanced data types, <code>list</code> and <code>map</code>, and details about these two will be explained in the Data Structure section.</p>
-<p>We can check a variable or value's data type by using the <code>typ</code> instruction.</p>
+<p>We can check a variable or value's data type by using the <code>typ</code> command.</p>
 <pre class="code-block"><code>typ N V
 </code></pre>
 
@@ -131,7 +131,7 @@ mod N V V
 </code></pre>
 
 <p>Let's take addition as an example, the sum of the two values <code>V V</code> is assigned to the variable <code>N</code>, the variable <code>N</code> will be created if it has not been defined.</p>
-<p>The <code>div</code> instruction works as a floor division, thus the division result is always an integer.</p>
+<p>The <code>div</code> command works as a floor division, thus the division result is always an integer.</p>
 <p>Play around with the following examples to get familiar with these arithmetic operations.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 350px;">let x 5
 let y 2
@@ -180,7 +180,7 @@ prt $z
 </div>
 
 <h2 id="jump">Jump</h2>
-<p>In Runtime Script, you can insert labels to any places in your program and jump to a specific label using the <code>jmp</code> instruction.</p>
+<p>In Runtime Script, you can insert labels to any places in your program and jump to a specific label using the <code>jmp</code> command.</p>
 <pre class="code-block"><code>jmp L
 </code></pre>
 
@@ -193,7 +193,7 @@ prt 'skipped'
 prt 'end'
 </div>
 
-<p>Four other jump instructions only jump when a certain condition is true.</p>
+<p>Four other jump commands only jump when a certain condition is true.</p>
 <pre class="code-block"><code>jeq V V L
 jne V V L
 jlt V V L
@@ -221,17 +221,18 @@ jne $i 5 loop
 <blockquote>
 <p>Defining a non-empty list is not supported.</p>
 </blockquote>
-<p>There are three instructions for list operations:</p>
-<pre class="code-block"><code>psh S V
+<p>There are three commands for list operations:</p>
+<pre class="code-block"><code>psh S V [V..]
 pop S N
 pol S N
+
+get S V N
+put S V V
 </code></pre>
 
-<p><code>psh</code> for appending a value to the end to the list, <code>pop</code> for extracting the last item from the list, and <code>pol</code> for extracting the first item from the list.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 320px;">let list []
-psh $list 3
-psh $list 2
-psh $list 'a'
+<p><code>psh</code> for appending one or multiple values to the end to the list, <code>pop</code> for extracting the last item from the list, and <code>pol</code> for extracting the first item from the list.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 270px;">let list []
+psh $list 3 2 'a'
 prt $list
 
 / pop the last item
@@ -248,7 +249,7 @@ prt $list
 <blockquote>
 <p><code>pop</code> or <code>pol</code> from an empty list will result in a <code>$nil</code>, which represents an empty value.</p>
 </blockquote>
-<p>List instructions also work on strings. We can regard a string as a list and each character is an item in this list.</p>
+<p>List commands also work on strings. We can regard a string as a list and each character is an item in this list.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 200px;">let str 'abcz'
 
 pop $str i      / get last character
@@ -262,9 +263,20 @@ prt $str
 <blockquote>
 <p><code>pop</code> or <code>pol</code> from an empty string will result in an empty string (<code>''</code>).</p>
 </blockquote>
+<p>Indexing on lists is supported.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 200px;">let list []
+psh $list 'apple' 'banana' 'orange'
+
+get $list 2 v       / index starts from 0
+prt $v
+
+put $list 1 'grape' / update a value in list
+prt $list
+</div>
+
 <h3>Map</h3>
 <p>The literal <code>{}</code> represents an empty map.</p>
-<p>There are two basic instructions, <code>put</code> and <code>get</code>, for adding a key-value pair and getting a value by its key respectively.</p>
+<p>There are two basic commands, <code>put</code> and <code>get</code>, for adding a key-value pair and getting a value by its key respectively.</p>
 <p>Besides, <code>key</code> gets the list of keys in the map, and <code>del</code> can delete a key-value pair from the map.</p>
 <pre class="code-block"><code>put M V V
 get M V N
@@ -273,7 +285,7 @@ del M V
 </code></pre>
 
 <p>The keys are always strings, and the values can be any data types.</p>
-<div class="runtime-embedded-box " style="width: 100%; height: 300px;">let map {}
+<div class="runtime-embedded-box " style="width: 100%; height: 280px;">let map {}
 
 put $map 0 'Zero'
 put $map 1 'One'
@@ -301,6 +313,45 @@ prt $map
 </div>
 
 <p>If the key in the <code>get</code> statement does not present in the map, a <code>$nil</code> value will be returned.</p>
+<h3>Iterator</h3>
+<p>We can iterate the elements in a list or the keys in a map using <code>for</code> and <code>nxt</code>.</p>
+<pre class="code-block"><code>for N V
+nxt
+</code></pre>
+
+<div class="runtime-embedded-box " style="width: 100%; height: 140px;">let list []
+psh $list 1 2 'a' 'b'
+for i $list
+ prt $i
+nxt
+</div>
+
+<p>If we try to iterate an integer, then it will loop through the integer from 0 to the given integer.</p>
+<p>Besides, the for loops can be nested.</p>
+<div class="runtime-embedded-box " style="width: 100%; height: 190px;">let list []
+psh $list 'a' 'b'
+for i $list
+ for j 3
+  prt $i ''
+  prt $j
+ nxt
+nxt
+</div>
+
+<blockquote>
+<p>Do not terminate a <code>for</code> loop before it finishes.</p>
+</blockquote>
+<h3>Length</h3>
+<p>To get the length of list, string or the number of entries in a map, we can use the <code>len</code> command.</p>
+<pre class="code-block"><code>len V N
+</code></pre>
+
+<div class="runtime-embedded-box " style="width: 100%; height: 130px;">let list []
+psh $list 1 2 3 'a' 'b' 'c'
+len $list length
+prt $length
+</div>
+
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3>User input</h3>
 <p>Get a user input string from the console.</p>
@@ -377,7 +428,7 @@ prt $direction
 
 <p>You can check a specific key's code <a target="_blank" target="_blank" href="https://keycode.info/">here</a>.</p>
 <h3>Parsing</h3>
-<p>Parsing strings to lists or maps could be tedious, no worries, there is an instruction for it.</p>
+<p>Parsing strings to lists or maps could be tedious, no worries, there is an command for it.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 150px;">prs list '[1,2,3]'
 prt $list
 
@@ -393,7 +444,7 @@ prt $map
 <p>You can find there is a black area on the right of the above editor. After clicking the <code>run</code> button, you will see a white dot drawn on the top-left corner.</p>
 <p>The origin of the canvas is at the top-left, and column/row numbers are zero-based.</p>
 <p>For instance, <code>drw 0 2 1</code> means filling the dot on column 0 (1st column) row 2 (3rd row) with white (<code>1</code>).</p>
-<p>The supported instructions for canvas operations are:</p>
+<p>The supported commands for canvas operations are:</p>
 <pre class="code-block"><code>clr V*
 drw V V V
 pxl N V V
@@ -434,7 +485,7 @@ drw 0 14 14 / gray (medium gray)
 drw 0 15 15 / dark gray
 </div>
 
-<p>Runtime Script also has some advanced instructions to mimic some high-level programming language statements, such as if-else and functions. These instructions can make it more convenient to write programs, but we should use them with caution.</p>
+<p>Runtime Script also has some advanced commands to mimic some high-level programming language statements, such as if-else and functions. These commands can make it more convenient to write programs, but we should use them with caution.</p>
 <blockquote>
 <p>Indentations in Runtime Script are only for readability, they do not affect the execution.</p>
 </blockquote>
@@ -524,7 +575,7 @@ end
 cal func 5 &quot;abc&quot;
 </div>
 
-<p>The <code>ret</code> instruction can terminate a function before reaching the end of it. Besides, it can optionally return a value to the caller's layer. The returned value is stored in <code>$ret</code>.</p>
+<p>The <code>ret</code> command can terminate a function before reaching the end of it. Besides, it can optionally return a value to the caller's layer. The returned value is stored in <code>$ret</code>.</p>
 <div class="runtime-embedded-box " style="width: 100%; height: 200px;">def cube
  mul r $0 $0
  mul r $r $0
