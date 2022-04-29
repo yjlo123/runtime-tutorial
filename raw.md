@@ -413,13 +413,15 @@ prt $num
 ### Time
 Get the system date or time.
 ```code-block
-tim N year|month|date|day|hour|minute|second|milli
+tim N year|month|date|day|hour|minute|second|milli|now
 ```
 
 ```runtime-embedded-box-0-90
 tim y year
 prt $y
 ```
+
+Use `tim N now` to get the current timestamp.
 
 ### User Key Press
 There is a special value, `$lastkey`, which records the user's last pressed key code.
