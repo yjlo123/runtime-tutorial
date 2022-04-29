@@ -421,7 +421,7 @@ tim y year
 prt $y
 ```
 
-Use `tim N now` to get the current timestamp.
+Use `tim N now` to get the current timestamp in millisecond.
 
 ### User Key Press
 There is a special value, `$lastkey`, which records the user's last pressed key code.
